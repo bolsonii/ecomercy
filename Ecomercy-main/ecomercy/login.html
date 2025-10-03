@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Bahiana&family=Barrio&family=Caveat+Brush&family=Coming+Soon&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"  rel="stylesheet">
+    <title>Document</title>
+    <style>
+        .btn-verde {
+            background-color: rgb(15, 88, 0);
+            border-color: rgb(15, 88, 0);
+            color: white;
+        }
+        .btn-verde:hover {
+            background-color: rgb(5, 53, 9);
+            border-color: rgb(5, 53, 9);
+            color: white;
+        }
+        .bg-verde {
+            background-color: rgb(24, 41, 24);
+        }
+
+        .text-center {
+            font-family: "Barrio", system-ui;
+        }
+       
+    </style>
+</head>
+<body class="bg-verde">
+    <div class="position-absolute top-50 start-50 translate-middle bg-light p-3 col-lg-2 rounded-4">
+        <div>
+            <h1 class="mb-3 text-center">Login</h1>
+        </div>
+            <div>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input class="form-control" type="text" id="email" name="email" value="teste">
+                    </div>
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input class="form-control" type="password" id="senha" name="senha" value="teste">
+                    </div>
+                    <div>
+                        <button class="btn btn-dark mb-3" type="submit" id="entrar">Enviar</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+    <script src="js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
