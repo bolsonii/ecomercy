@@ -1,2 +1,0 @@
-# Ecomercy
-A e comerce

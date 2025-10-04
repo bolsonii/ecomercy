@@ -5,38 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Document</title>
+    <style>
+      .navbar {
+        background-color: rgb(24, 41, 24);
+      }
+      li{
+        color: white;
+      }
+      .item {
+        color: white;
+        text-decoration: none;
+      }
+      .item:hover{
+        color:grey;
+      }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Ecomercy</a>
+          <a class="item navbar-brand" href="#">Ecomercy</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <li>
+                <a class="item me-4" href="#">Sobre</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Sobre</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <li >
+                <a class="item me-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Tutoriais
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-disabled="true">Loja</a>
+              <li>
+                <a class="item me-4" aria-disabled="true">Loja</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-disabled="true">Pontos de coleta</a>
+              <li>
+                <a class="item " aria-disabled="true">Pontos de coleta</a>
               </li>
             </ul>
 
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class=" item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Login/Cadastro
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -54,22 +66,12 @@
           </div>
         </div>
       </nav>
-      <form class="modal">
-        <div class="mb-3 ">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+        <div class="col-lg-8">
+            <div class="position-absolute top-0 start-50 translate-middle-x mt-5">
+            <p class="mt-5 text-center">Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.            </p>
+          </div>
+          </div>
+
       <p id="retorno"></p>
       <a href="../itens/gerenciar_itens.html">Gerenciar Itens</a>
     </div>
