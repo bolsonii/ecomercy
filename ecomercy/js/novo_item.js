@@ -1,6 +1,6 @@
 document.getElementById("enviar").addEventListener("click", function(){
     armazenar();
-    window.location.href = "gerenciar_itens.html";
+    window.location.href = "gerenciarItens.html";
 });
 
 function armazenar(){

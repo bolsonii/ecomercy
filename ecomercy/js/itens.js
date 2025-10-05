@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById("novo").addEventListener("click", function(){
-    window.location.href = "novo_item.html";
+    window.location.href = "novoItem.html";
 });
 
 function validaSessao(){
@@ -16,7 +16,7 @@ function validaSessao(){
     }else{
         return false;
     }
-}
+} 
 
 function carregaItens(){
     if(localStorage.getItem("listaItens")){

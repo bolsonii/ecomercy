@@ -9,7 +9,7 @@ async function login(){
     fd.append("email", email);
     fd.append("senha", senha);
 
-    const retorno = await fetch("./php/login.php",{
+    const retorno = await fetch("../php/login.php",{
         method: "POST",
         body: fd
     });
