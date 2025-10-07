@@ -28,6 +28,7 @@ function carregaItens(){
         html += "<td>Nome</td>";
         html += "<td>Id</td>";
         html += "<td>Valor</td>";
+        html += "<td>#</td>";
         html += "</tr>";
 
         for(var i=0;i<lista.length;i++){
@@ -36,6 +37,7 @@ function carregaItens(){
             html += "<td>"+lista[i].nome+"</td>";
             html += "<td>"+lista[i].id+"</td>";
             html += "<td>"+lista[i].valor+"</td>";
+            html += "<td><a href='javascript:editar("+i+")'>Editar</a></td>";
             html += "</tr>";
         }
 
@@ -55,4 +57,9 @@ function excluir(id){
     listaItens.splice(id,1);
     localStorage.setItem("listaItens",JSON.stringify(listaItens));
     window.location.reload();
+}
+
+function editar(id){
+    localStorage.setItem("editItem", id);
+    window.location.href = "editarItem.html";
 }

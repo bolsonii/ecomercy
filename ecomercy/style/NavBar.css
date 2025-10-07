@@ -19,3 +19,17 @@
       .navbar-brand:hover {
         color: rgba(255, 255, 255, 0.6);
       }
+
+      .bg-verde {
+        background-color: rgb(24, 41, 24);
+      }
+
+      .item {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+    .item:hover, .item.active {
+      color: white;
+    }
