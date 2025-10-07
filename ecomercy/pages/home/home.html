@@ -6,21 +6,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Document</title>
     <link rel="stylesheet" href="../../style/globalStyles.css">
-    <style>
-      .bg-verde {
-        background-color: rgb(24, 41, 24);
-      }
-
-      .item {
-        color: rgba(255, 255, 255, 0.6);
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-
-    .item:hover, .item.active {
-      color: white;
-    }
-    </style>
+        <link rel="stylesheet" href="../../GlobalStyles/NavBar.css">
+        <link rel="stylesheet" href="home.css">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-verde">
@@ -38,7 +25,7 @@
             <a class="nav-link me-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tutoriais</a>
           </li>
           <li>
-            <a class="nav-link me-4" aria-disabled="true">Loja</a>
+            <a class="nav-link me-4" aria-disabled="true">Lojas</a>
           </li>
           <li>
             <a class="nav-link" aria-disabled="true">Pontos de coleta</a>
@@ -76,15 +63,96 @@
       </div>
     </div>
   </nav>
-  <div class="col-lg-8">
-    <div class="position-absolute top-0 start-50 translate-middle-x mt-5">
-      <p class="mt-5 text-center">Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.            </p>
-    </div>
-  </div>
-  <div>
-    <p id="retorno"></p>
-  </div>
+<br><br>  
 
+<!-- Carrossel empresas parceiras -->
+
+<section class="parceiros-section">
+    <div class="container">
+        <h2>Empresas Parceiras</h2>
+        <div id="carouselParceiros" class="carousel carousel-parceiros slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-around">
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+A" alt="Logo Empresa A">
+                        </div>
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+B" alt="Logo Empresa B">
+                        </div>
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+C" alt="Logo Empresa C">
+                        </div>
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+D" alt="Logo Empresa D">
+                        </div>
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+E" alt="Logo Empresa E">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-around">
+                        <div class="logo-parceiro">
+                            <img src="../../assets/empresas/correios.jpeg" alt="Logo Empresa F">
+                        </div>
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+G" alt="Logo Empresa G">
+                        </div>
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+H" alt="Logo Empresa H">
+                        </div>
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+I" alt="Logo Empresa I">
+                        </div>
+                        <div class="logo-parceiro">
+                            <img src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+J" alt="Logo Empresa J">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselParceiros" data-bs-slide="prev">
+                <i class="bi bi-chevron-left carousel-control-prev-icon"></i>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselParceiros" data-bs-slide="next">
+                <i class="bi bi-chevron-right carousel-control-next-icon"></i>
+                <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Começo Sobre nós -->
+
+<section class="sobre-nos" class="my-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Sobre Nós</h2>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p>
+                    A <strong>Ecomercy</strong> é uma empresa dedicada a conectar pessoas interessadas 
+                    na compra e venda de lixo eletrônico, promovendo sustentabilidade e reaproveitamento 
+                    tecnológico. Fundada por cinco empreendedores apaixonados por inovação e meio ambiente.
+                </p>
+                <p>
+                    Nossa missão é facilitar o processo de troca de equipamentos eletrônicos usados, 
+                    garantindo que esses itens sejam reutilizados ou reciclados de maneira adequada, 
+                    reduzindo o impacto ambiental.
+                </p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="../../assets/lixos.jpeg" alt="Sobre Nós" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<br><br>
   <footer class="bg-dark text-light mt-5 pt-4 pb-3 position-absolute top-100">
     <div class="container-fluid">
       <div class="row">
