@@ -46,15 +46,13 @@
     .logo-parceiro img {
         max-height: 70px;
         width: auto;
-        filter: grayscale(100%); /* Efeito preto e branco */
         opacity: 0.7;
         transition: all 0.3s ease;
     }
 
     .logo-parceiro img:hover {
-        filter: grayscale(0%);
         opacity: 1;
-        transform: scale(1.1);
+        transform: scale(1.2);
     }
 
     /* Deixa as setas do carrossel mais escuras e visíveis */

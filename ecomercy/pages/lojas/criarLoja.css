@@ -1,0 +1,149 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Define a cor tema como uma variável CSS para fácil reutilização */
+:root {
+    --theme-color: rgb(24, 41, 24);
+    --theme-color-darker: rgb(15, 25, 15);
+    --text-color: #f0f0f0;
+    --border-color: rgba(255, 255, 255, 0.2);
+    --accent-color: #a8ff78; /* Cor de destaque (verde claro) */
+}
+
+body {
+    /* Adiciona um fundo com gradiente sutil e a nova fonte */
+    background-color: #fcf0f0;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif; 
+    padding: 20px; /
+}
+
+.form-container {
+    background-color: var(--theme-color);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(5px); 
+}
+
+.form-header h2, .form-header h3 {
+    text-align: center;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.form-header h2 {
+    font-weight: 600; 
+    margin-bottom: 0.5rem;
+}
+
+.form-header h3 {
+    font-weight: 300;
+    color: #a0a0a0;
+    margin-bottom: 2rem;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border: none;
+    color: #a0a0a0;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    transition: color 0.3s ease;
+}
+
+.form-control {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    height: 50px;
+    transition: all 0.3s ease; /* 3. Adiciona transição suave para todos os efeitos */
+}
+
+/* espaçamento do ícone */
+.input-wrapper .form-control {
+    padding-left: 60px; /* Espaço garantido para o ícone */
+}
+
+.form-control:focus {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(168, 255, 120, 0.2); /* Efeito de "brilho" */
+    color: var(--text-color);
+}
+
+/* Faz o ícone mudar de cor junto com o campo */
+.form-control:focus + .input-group-text,
+.input-wrapper:focus-within .input-group-text {
+    color: var(--accent-color);
+}
+
+
+.form-control::placeholder {
+    color: #888;
+}
+
+/* Estilização para o botão do input de arquivo */
+.form-control[type="file"]::file-selector-button {
+    background-color: var(--theme-color-darker);
+    color: var(--text-color);
+    border: none;
+    padding: 0 15px;
+    height: calc(100% - 4px);
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.form-control[type="file"]::file-selector-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-custom {
+    background: linear-gradient(45deg, var(--accent-color), #78ffd6);
+    border: none;
+    color: var(--theme-color-darker);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 0;
+    width: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(145, 255, 178, 0.2);
+    border-radius: 8px; /* Bordas levemente arredondadas */
+}
+
+.btn-custom:hover {
+    transform: translateY(-3px) scale(1.02); /* Efeito de levantar e crescer */
+    box-shadow: 0 8px 25px rgba(145, 255, 178, 0.4);
+    filter: brightness(1.1); /* Deixa o botão mais "vivo" */
+    color: var(--theme-color-darker);
+}
+
+/* Estilização do Switch Toggle */
+.form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.toggle-switch-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
