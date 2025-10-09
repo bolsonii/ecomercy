@@ -44,7 +44,7 @@
     }
 
     .logo-parceiro img {
-        max-height: 70px; /* Altura máxima para todos os logos ficarem uniformes */
+        max-height: 70px;
         width: auto;
         filter: grayscale(100%); /* Efeito preto e branco */
         opacity: 0.7;
@@ -52,9 +52,9 @@
     }
 
     .logo-parceiro img:hover {
-        filter: grayscale(0%); /* Remove o efeito ao passar o mouse */
+        filter: grayscale(0%);
         opacity: 1;
-        transform: scale(1.1); /* Aumenta um pouco o logo */
+        transform: scale(1.1);
     }
 
     /* Deixa as setas do carrossel mais escuras e visíveis */
@@ -70,4 +70,8 @@
     .sobre-nos .container h2 {
         color: rgb(24, 41, 24);
         font-weight: bold;
+    }
+
+    #footer-home {
+        background-color: rgb(24, 41, 24);
     }
