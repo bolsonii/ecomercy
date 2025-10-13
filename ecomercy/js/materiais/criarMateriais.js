@@ -1,7 +1,12 @@
 function validarCamposMateriais() {
   const nomeInput = document.getElementById("nome_material");
   const precoInput = document.getElementById("preco_material");
-  if (!nomeInput.value.trim() || !precoInput.value.trim()) {
+  const categoriaSelect = document.getElementById("categoria_material");
+  if (
+    !nomeInput.value.trim() ||
+    !precoInput.value.trim() ||
+    categoriaSelect.value === ""
+  ) {
     alert("Preencha todos os campos!");
     return false;
   }
@@ -22,13 +27,14 @@ document
 function salvarDadosMateriais() {
   const nomeInput = document.getElementById("nome_material");
   const precoInput = document.getElementById("preco_material");
+  const categoriaSelect = document.getElementById("categoria_material");
 
   const todosMateriais = JSON.parse(localStorage.getItem("Materiais")) || [];
 
   const novoMaterial = {
     nome: nomeInput.value,
     preco: precoInput.value,
-    // Falta adicionar a categoria aqui
+    categoria: categoriaSelect.value,
   };
 
   todosMateriais.push(novoMaterial);
