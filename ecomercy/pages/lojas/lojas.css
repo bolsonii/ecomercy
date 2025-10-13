@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --theme-color: rgb(24, 41, 24);
+    --text-muted: #a0a0a0;
+    --border-color: rgba(255, 255, 255, 0.2);
+    --details-color: #a8ff78;
+}
+
+body {
+    color: var(--details-color);
+    background-color: #000000;  
+    font-family: 'Poppins', sans-serif;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.main-header {
+    text-align: center;
+    padding: 40px 0;
+    font-weight: 700;
+}
+
+.section-title {
+    color: var(--details-color);
+    font-weight: 600;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.card-loja {
+    background-color: var(--theme-color);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.card-loja:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+}
+
+.card-loja .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.card-loja .card-body {
+    padding: 25px;
+}
+
+.card-loja .card-titulo {
+    font-weight: 600;
+    color: var(--details-color);
+}
+
+.card-loja .card-subtitle {
+    font-weight: 300;
+    color: var(--text-muted);
+}
+
+.card-loja .loja-info p {
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.card-loja .loja-info i {
+    color: var(--details-color);
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.user-loja-card {
+    border: 2px solid var(--details-color);
+    box-shadow: 0 0 25px rgba(168, 255, 120, 0.2);
+    transition: all 0.3s ease; 
+    width: 90%;                      
+    max-width: 800px;                
+    height: 520px;                   
+    margin: 0 auto 2rem auto;        
+}
+
+.user-loja-card .user-badge {
+    background-color: var(--details-color);
+    color: var(--theme-color);
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 15px;
+}
+.user-loja-card .card-img-top {
+    height: 280px; 
+}
+
+.user-loja-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 0 35px rgba(168, 255, 120, 0.4); /* Aumenta o brilho do card */
+}
+
+.no-store-message {
+    background-color: var(--theme-color);
+    border: 2px dashed var(--border-color);
+    padding: 40px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.no-store-message a {
+    color: var(--details-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+.no-store-message a:hover {
+    text-decoration: underline;
+}
+
+.user-loja-card:hover {
+
+    transform: scale(1.2); 
+    z-index: 10;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.edit-store-btn {
+    position: absolute;
+    top: 1rem; /* 16px */
+    right: 1rem; /* 16px */
+    z-index: 5;
+    background-color: rgba(24, 41, 24, 0.8);
+    color: var(--details-color);
+    border: 1px solid var(--details-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.edit-store-btn:hover {
+    background-color: var(--details-color);
+    color: var(--theme-color);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--details-color);
+}

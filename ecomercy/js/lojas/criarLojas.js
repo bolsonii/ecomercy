@@ -36,19 +36,6 @@ document.getElementById("criar_loja").addEventListener("click", function(event) 
 
     window.location.href = "../../pages/lojas/lojas.html";
 });
-    document.getElementById("criar_loja").addEventListener("click", function(event) {
-    event.preventDefault();
-
-    if (!validarCamposLoja()) {
-        return;
-    }
-
-    salvarDadosLoja();
-
-    alert("Loja criada com sucesso! Redirecionando...");
-
-    window.location.href = "../../pages/lojas/lojas.html";
-    });
 
 function salvarDadosLoja() {
     const nomeInput = document.getElementById("nome_loja");
