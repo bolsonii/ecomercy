@@ -1,0 +1,19 @@
+#footer-home {
+    background-color: rgb(24, 41, 24);
+}
+
+.paragrafo-top {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+}
+
+body {
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
