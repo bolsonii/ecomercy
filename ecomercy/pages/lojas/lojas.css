@@ -2,7 +2,7 @@
 
 :root {
     --theme-color: rgb(24, 41, 24);
-    --text-muted: #a0a0a0;
+    --text-alter: #a0a0a0;
     --border-color: rgba(255, 255, 255, 0.2);
     --details-color: #a8ff78;
 }
@@ -60,12 +60,12 @@ body {
 
 .card-loja .card-subtitle {
     font-weight: 300;
-    color: var(--text-muted);
+    color: var(--text-alter);
 }
 
 .card-loja .loja-info p {
     margin-bottom: 8px;
-    color: var(--text-muted);
+    color: var(--text-alter);
     font-size: 0.9rem;
 }
 
