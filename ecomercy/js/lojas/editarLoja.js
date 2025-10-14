@@ -19,7 +19,6 @@
             document.getElementById("email-loja").value = dadosLoja.email;
             document.getElementById("cep_loja").value = dadosLoja.cep;
 
-            // Marca o switch (compra/venda) de acordo com o tipo salvo.
             document.getElementById("storeTypeSwitch").checked = (dadosLoja.tipo === "Compra");
             
             // Exibe o nome do arquivo de imagem que está salvo.
