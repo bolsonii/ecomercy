@@ -1,0 +1,53 @@
+:root {
+    --cor-tema: rgb(24, 41, 24);
+    --cor-tema-escuro: rgb(15, 25, 15);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --cor-brilho: #a8ff78;
+}
+
+body {
+    background-color: #fcf0f0;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+}
+
+.form-container {
+    background-color: var(--cor-tema);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid var(--border-color);
+}
+
+h2 { text-align: center; font-weight: bold; }
+.form-control { background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); color: var(--text-color); height: 50px; padding-left: 15px; }
+.form-control:focus { background-color: rgba(0, 0, 0, 0.4); border-color: var(--cor-brilho); box-shadow: 0 0 0 0.25rem rgba(168, 255, 120, 0.25); color: var(--text-color); }
+.form-check-input:checked { background-color: var(--cor-brilho); border-color: var(--cor-brilho); }
+
+.btn-salvar { background: linear-gradient(45deg, #a8ff78, #78ffd6); border: none; color: var(--cor-tema-escuro); font-weight: bold; }
+.btn-salvar:hover { color: var(--cor-tema-escuro); filter: brightness(1.1); }
+
+.btn-excluir { background-color: #ff4d4d; border: none; color: white; font-weight: bold; }
+.btn-excluir:hover { background-color: #cc0000; }
+
+#arquivo-atual {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+#sem-loja-aviso {
+    text-align: center;
+    border: 2px dashed var(--border-color);
+    padding: 20px;
+    border-radius: 10px;
+}
+#sem-loja-aviso a { color: var(--cor-brilho); font-weight: bold; }

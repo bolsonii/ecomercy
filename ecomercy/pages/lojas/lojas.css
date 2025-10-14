@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 :root {
-    --theme-color: rgb(24, 41, 24);
-    --text-alter: #a0a0a0;
+    --cor-tema: rgb(24, 41, 24);
+    --cor-texto2: #a0a0a0;
     --border-color: rgba(255, 255, 255, 0.2);
-    --details-color: #a8ff78;
+    --cor-brilho: #a8ff78;
 }
 
 body {
-    color: var(--details-color);
+    color: var(--cor-brilho);
     background-color: #000000;  
     font-family: 'Poppins', sans-serif;
     padding-top: 50px;
@@ -22,7 +22,7 @@ body {
 }
 
 .section-title {
-    color: var(--details-color);
+    color: var(--cor-brilho);
     font-weight: 600;
     margin-bottom: 25px;
     padding-bottom: 10px;
@@ -30,7 +30,7 @@ body {
 }
 
 .card-loja {
-    background-color: var(--theme-color);
+    background-color: var(--cor-tema);
     border: 1px solid var(--border-color);
     border-radius: 15px;
     overflow: hidden;
@@ -55,29 +55,29 @@ body {
 
 .card-loja .card-titulo {
     font-weight: 600;
-    color: var(--details-color);
+    color: var(--cor-brilho);
 }
 
 .card-loja .card-subtitle {
     font-weight: 300;
-    color: var(--text-alter);
+    color: var(--cor-texto2);
 }
 
 .card-loja .loja-info p {
     margin-bottom: 8px;
-    color: var(--text-alter);
+    color: var(--cor-texto2);
     font-size: 0.9rem;
 }
 
 .card-loja .loja-info i {
-    color: var(--details-color);
+    color: var(--cor-brilho);
     width: 20px;
     text-align: center;
     margin-right: 10px;
 }
 
 .user-loja-card {
-    border: 2px solid var(--details-color);
+    border: 2px solid var(--cor-brilho);
     box-shadow: 0 0 25px rgba(168, 255, 120, 0.2);
     transition: all 0.3s ease; 
     width: 90%;                      
@@ -87,8 +87,8 @@ body {
 }
 
 .user-loja-card .user-badge {
-    background-color: var(--details-color);
-    color: var(--theme-color);
+    background-color: var(--cor-brilho);
+    color: var(--cor-tema);
     font-weight: 600;
     border-radius: 5px;
     padding: 5px 10px;
@@ -104,7 +104,7 @@ body {
 }
 
 .no-store-message {
-    background-color: var(--theme-color);
+    background-color: var(--cor-tema);
     border: 2px dashed var(--border-color);
     padding: 40px;
     text-align: center;
@@ -112,7 +112,7 @@ body {
 }
 
 .no-store-message a {
-    color: var(--details-color);
+    color: var(--cor-brilho);
     font-weight: 600;
     text-decoration: none;
 }
@@ -133,8 +133,8 @@ body {
     right: 1rem; /* 16px */
     z-index: 5;
     background-color: rgba(24, 41, 24, 0.8);
-    color: var(--details-color);
-    border: 1px solid var(--details-color);
+    color: var(--cor-brilho);
+    border: 1px solid var(--cor-brilho);
     width: 40px;
     height: 40px;
     display: flex;
@@ -146,8 +146,8 @@ body {
 }
 
 .edit-store-btn:hover {
-    background-color: var(--details-color);
-    color: var(--theme-color);
+    background-color: var(--cor-brilho);
+    color: var(--cor-tema);
     transform: scale(1.1);
-    box-shadow: 0 0 15px var(--details-color);
+    box-shadow: 0 0 15px var(--cor-brilho);
 }
