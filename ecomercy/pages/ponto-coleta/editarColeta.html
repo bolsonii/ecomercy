@@ -66,12 +66,28 @@
         </div>
     </nav>
     <main>
-        <div class="text-center">
-            <p class="paragrafo-top">Crie um ponto de coleta!</p>
-            <button type="button" class="btn btn-outline-success" id="criarColeta" ><i class="fa-solid fa-plus"></i></button>
-        </div>
-        <div class="text-center" id="retorno">
-
+        <div>
+            <div>
+                <p>Alterar Ponto de Coleta</p>
+            </div>
+            <div>
+                <input type="hidden" id="idColeta">
+            </div>
+            <div>
+                <label for="endereco">Endereço: </label>
+                <input type="text" id="novoEndereco" name="endereco">
+            </div>
+            <div>
+                <label for="hora">Horário: </label>
+                <input type="time" id="novoHora" name="hora">
+            </div>
+            <div>
+                <label for="loja">Nome da loja: </label>
+                <input type="text" id="novoLoja" name="loja">
+            </div>
+            <div>
+                <button type="button" id="editarColeta">Salvar alterações</button>
+            </div>
         </div>
     </main>
     <br /><br />
@@ -135,6 +151,6 @@
             </p>
         </div>
     </footer>
-    <script src="../../js/ponto-coleta/coleta.js"></script>
+    <script src="../../js/ponto-coleta/editarColeta.js"></script>
 </body>
 </html>
