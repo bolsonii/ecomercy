@@ -26,10 +26,10 @@ document
 
 function salvarDadosMateriais() {
   const nomeInput = document.getElementById("nome_material");
-  const precoInput = document.getElementById("preco_material");
+  const precoInput = parseFloat(document.getElementById("preco_material"));
   const categoriaSelect = document.getElementById("categoria_material");
 
-  const todosMateriais = JSON.parse(localStorage.getItem("Materiais")) || [];
+  const todosMateriais = JSON.parse(localStorage.getItem("materiais")) || [];
 
   const novoMaterial = {
     nome: nomeInput.value,
