@@ -1,17 +1,29 @@
 document.getElementById('salvarColeta').addEventListener('click', () => {
-    armazenar();
-    window.location.href = 'coleta.html'
-})
+    salvarNoBanco();
+});
 
-function armazenar() {
-    var lista = JSON.parse(localStorage.getItem('listaColeta')) || [];
-
-    var obj = {endereco: "", hora: "", loja: ""};
+async function salvarNoBanco() {
+    var obj = { endereco: "", hora: "", loja: "" };
     obj.endereco = document.getElementById('endereco').value;
     obj.hora = document.getElementById('hora').value;
     obj.loja = document.getElementById('loja').value;
 
-    lista.push(obj);
+    const fd = new FormData();
+    fd.append("endereco", obj.endereco);
+    fd.append("hora", obj.hora);
+    fd.append("loja", obj.loja);
 
-    localStorage.setItem('listaColeta', JSON.stringify(lista));
+    const retorno = await fetch("../../php/coleta_nova.php", {
+        method: 'POST',
+        body: fd
+    });
+
+    const resposta = await retorno.json();
+
+    if (resposta.status == "ok") {
+        alert(resposta.mensagem);
+        window.location.href = 'coleta.html';
+    } else {
+        alert("ERRO: " + resposta.mensagem);
+    }
 }
