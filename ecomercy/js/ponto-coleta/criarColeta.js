@@ -13,7 +13,7 @@ async function salvarNoBanco() {
     fd.append("hora", obj.hora);
     fd.append("loja", obj.loja);
 
-    const retorno = await fetch("../../php/coleta_nova.php", {
+    const retorno = await fetch("../../php/ponto-coleta/coleta_nova.php", {
         method: 'POST',
         body: fd
     });

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function buscarDadosDaColeta(id) {
-    const retorno = await fetch(`../../php/coleta_get.php?id=${id}`);
+    const retorno = await fetch(`../../php/ponto-coleta/coleta_get.php?id=${id}`);
     const resposta = await retorno.json();
 
     if (resposta.status == "ok") {
@@ -39,7 +39,7 @@ async function salvarAlteracao() {
     fd.append("hora", hora);
     fd.append("loja", loja);
 
-    const retorno = await fetch(`../../php/coleta_alterar.php?id=${id}`, {
+    const retorno = await fetch(`../../php/ponto-coleta/coleta_alterar.php?id=${id}`, {
         method: 'POST',
         body: fd
     });

@@ -43,7 +43,7 @@ async function excluir(id) {
         return;
     }
 
-    const retorno = await fetch(`../../php/coleta_excluir.php?id=${id}`);
+    const retorno = await fetch(`../../php/ponto-coleta/coleta_excluir.php?id=${id}`);
     const resposta = await retorno.json();
 
     if (resposta.status == "ok") {
