@@ -1,5 +1,5 @@
 # Ecomercy
-## BY: Allysson Ostrufka, Geovana Vincensi, Gonçalo Henrique, Gustavo Bolsoni, Henrique Mello.
+## BY: Allyson Ostrufka, Geovana Vincensi, Gonçalo Henrique, Gustavo Bolsoni, Henrique Mello.
 
 Ecomercy: Recicle, Venda, Compre, Reutilize e Ganhe!
 ## ♻️ Sobre o Projeto
