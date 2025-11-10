@@ -27,26 +27,40 @@ async function excluir(id){
 
 function preencherTabela(tabela){
     var html = `
-        <table>
-            <tr>
-                <th> Nome </th>
-                <th> Id </th>
-                <th> preco </th>
-                <th> # </th>
-            </tr>`;
-    for(var i=0;i<tabela.length;i++){
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>`;
+
+    for(var i=0; i < tabela.length; i++){
+        const precoFormatado = parseFloat(tabela[i].preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
         html += `
             <tr>
-                <td>${tabela[i].nome}</td>
                 <td>${tabela[i].id}</td>
-                <td>${tabela[i].preco}</td>
-                <td>
-                    <a href='editarItem.html?id=${tabela[i].id}'>Alterar</a>
-                    <a href='#' onclick='excluir(${tabela[i].id})'>Excluir</a>
+                <td>${tabela[i].nome}</td>
+                <td>${precoFormatado}</td>
+                <td class="text-end">
+                    <a href='editarItem.html?id=${tabela[i].id}' class="btn btn-warning btn-sm me-2">
+                        <i class="bi bi-pencil-square"></i> Alterar
+                    </a>
+                    <a href='#' onclick='excluir(${tabela[i].id})' class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i> Excluir
+                    </a>
                 </td>
             </tr>
         `;
     }
-    html += '</table>';
+
+    html += `
+            </tbody>
+        </table>`;
+        
     document.getElementById("lista").innerHTML = html;
 }
