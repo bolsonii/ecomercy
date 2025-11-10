@@ -36,21 +36,21 @@
                 <a class=" item dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gerenciar</a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                    <a class="dropdown-item" href="../itens/gerenciarItens.html">Itens</a>
+                      <a class="dropdown-item" href="../itens/gerenciarItens.html">Itens</a>
                     </li>
                     <li>
-                    <a class="dropdown-item" href="#">Cadastro</a>
+                      <a class="dropdown-item" href="../materiais/material.html">Materiais</a>
                     </li>
                     <li>
-                    <a class="dropdown-item" href="#">Cadastro</a>
+                      <a class="dropdown-item" href="../ponto-coleta/coleta.html">Ponto de Coleta</a>
                     </li>
                     <li>
-                    <a class="dropdown-item" href="#">Cadastro</a>
+                      <a class="dropdown-item" href="../tutoriais/tutoriais.html">Tutoriais</a>
                     </li>
                     <li>
-                    <a class="dropdown-item" href="#">Cadastro</a>
+                      <a class="dropdown-item" href="../lojas/lojas.html">Loja</a>
                     </li>
-                </ul>
+                  </ul>
             </li>
             </ul>
 
@@ -62,23 +62,31 @@
         </div>
         </div>
     </nav>
-    <div>
-        <p><h1>Novo Item</h1></p>
-        <p>
-            <div>
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome">
-            </div>
-            <div>
-                <label for="preco">Preco</label>
-                <input type="preco" id="preco" name="preco">
-            </div>
-            <div>
-                <button type="button" id="enviar">Enviar</button>
-            </div>
-        </p>
+    
+    <div class="container mt-5">
+        <h1>Novo Item</h1>
+        
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="preco" class="form-label">Preço (R$)</label>
+            <input type="number" step="0.01" class="form-control" id="preco" name="preco" required>
+        </div>
+        
+        <div>
+            <button type="button" class="btn btn-success" id="enviar">
+                <i class="bi bi-check-circle"></i> Salvar
+            </button>
+            <a href="gerenciarItens.html" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
     </div>
-    <footer class="bg-dark text-light mt-5 pt-4 pb-3 position-absolute top-100">
+
+    <footer class="bg-dark text-light mt-5 pt-4 pb-3">
         <div class="container-fluid">
         <div class="row">
 
