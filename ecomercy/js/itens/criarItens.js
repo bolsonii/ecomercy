@@ -10,7 +10,7 @@ async function novo(){
     fd.append("nome", nome);
     fd.append("preco", preco);
 
-    const retorno = await fetch("/ecomercy/php/itens/itens_novo.php",
+    const retorno = await fetch("../../php/itens/itens_novo.php",
     {
       method: 'POST',
       body: fd  

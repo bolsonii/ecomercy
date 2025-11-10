@@ -61,23 +61,36 @@
         </div>
         </div>
     </nav>
-    <div>
-        <p><h1>Editar Item</h1></p>
-        <p>
-            <div>
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome">
-            </div>
-            <div>
-                <label for="preco">Preço</label>
-                <input type="preco" id="preco" name="preco">
-            </div>
-            <div>
-                <button type="button" id="enviar">Salvar</button>
-            </div>
-        </p>
+    
+    <div class="container mt-5">
+        <h1>Editar Item</h1>
+        <div class="mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input type="text" class="form-control" id="id" name="id" readonly style="background-color: #e9ecef;">
+        </div>
+        
+        
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="preco" class="form-label">Preço (R$)</label>
+            <input type="number" step="0.01" class="form-control" id="preco" name="preco" required>
+        </div>
+        
+        <div>
+            <button type="button" class="btn btn-success" id="enviar">
+                <i class="bi bi-check-circle"></i> Salvar Alterações
+            </button>
+            <a href="gerenciarItens.html" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
     </div>
-    <footer class="bg-dark text-light mt-5 pt-4 pb-3 position-absolute top-100">
+    
+    <footer class="bg-dark text-light mt-5 pt-4 pb-3">
         <div class="container-fluid">
         <div class="row">
 
@@ -115,10 +128,11 @@
         <hr class="border-secondary" />
 
             <p class="text-center text-secondary mb-0">
-            &copy; 2025 <span class="text-success">Ecomercy</span> — Todos os direitos reservados.
+            &copy; 2025 <span class="text-success">Ecomercy</span> – Todos os direitos reservados.
             </p>
         </div>
     </footer>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="../../js/itens/editarItens.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

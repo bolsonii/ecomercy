@@ -1,5 +1,5 @@
 <?php
-    include_once('conexao.php');
+    include_once('../conexao.php');
     //Configurando o padrão de retorno em todas as situações
     $retorno = [
         'status'   => '', //ok - nok
