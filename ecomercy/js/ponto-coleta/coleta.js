@@ -7,7 +7,7 @@ document.getElementById('criarColeta').addEventListener('click', () => {
 });
 
 async function carregarPontosDoBanco() {
-    const retorno = await fetch("../../php/coleta_get.php");
+    const retorno = await fetch("../../php/ponto-coleta/coleta_get.php");
     const resposta = await retorno.json();
 
     if (resposta.status == "nok") {
