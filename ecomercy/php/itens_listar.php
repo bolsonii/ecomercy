@@ -2,8 +2,7 @@
 include_once('conexao.php');
 $retorno = ['status' => 'ok', 'data' => []];
 
-// Busca ID e Nome da tabela Itens
-$resultado = $conexao->query("SELECT id_itens, nome_item FROM Itens ORDER BY nome_item");
+$resultado = $conexao->query("SELECT id AS id_itens, nome AS nome_item FROM Itens ORDER BY nome");
 
 if ($resultado && $resultado->num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
