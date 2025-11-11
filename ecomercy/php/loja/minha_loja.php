@@ -29,7 +29,7 @@ $stmt->close();
 $retorno = [
     'status' => 'ok',
     'mensagem' => 'Lojas do usuário carregadas',
-    'data' => $lojas_usuario // Agora é um array simples
+    'data' => $lojas_usuario
 ];
 
 $conexao->close();

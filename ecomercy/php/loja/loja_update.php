@@ -4,7 +4,21 @@ session_start();
 
 $retorno = ['status' => 'nok', 'mensagem' => 'Ocorreu um erro'];
 
-// ... (Validação de Sessão e GET['id'] ... )
+// Validação de sessão
+if (!isset($_SESSION['id_pessoa'])) {
+    $retorno['mensagem'] = 'Usuário não autenticado.';
+    header('Content-type:application/json;charset:utf-8');
+    echo json_encode($retorno);
+    exit;
+}
+
+// Validação do ID
+if (!isset($_GET['id'])) {
+    $retorno['mensagem'] = 'ID da loja não informado.';
+    header('Content-type:application/json;charset:utf-8');
+    echo json_encode($retorno);
+    exit;
+}
 
 $id_pessoa = $_SESSION['id_pessoa'];
 $id_loja = (int)$_GET['id'];
@@ -14,7 +28,7 @@ $id_itens_input = (int)($_POST['id_itens'] ?? 0);
 // Converte 0 (ou vazio) para NULL
 $id_itens = ($id_itens_input > 0) ? $id_itens_input : NULL;
 
-// Validação MODIFICADA
+// Validação
 if (empty($nome_loja)) {
     $retorno['mensagem'] = 'O nome da loja não pode ser vazio.';
     header('Content-type:application/json;charset:utf-8');
@@ -27,9 +41,9 @@ $stmt->bind_param("siii", $nome_loja, $id_itens, $id_loja, $id_pessoa);
 $stmt->execute();
 
 if ($stmt->affected_rows > 0) {
-    $retorno = ['status' => 'ok', 'mensagem' => 'Registro alterado com sucesso.'];
+    $retorno = ['status' => 'ok', 'mensagem' => 'Loja atualizada com sucesso!'];
 } else {
-    $retorno['mensagem'] = 'Falha ao alterar ou nenhum dado foi modificado.';
+    $retorno['mensagem'] = 'Falha ao atualizar a loja ou nenhum dado foi modificado.';
 }
 
 $stmt->close();

@@ -11,9 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
   
   carregarDadosEdicao();
 
-  document
-    .getElementById("salvar_alteracoes")
-    .addEventListener("click", salvarEdicao);
+  document.getElementById("salvar_alteracoes").addEventListener("click", salvarEdicao);
+  document.getElementById("excluir_loja").addEventListener("click", excluirLoja);
 });
 
 async function carregarItens(idItemSelecionado = null) {
@@ -31,7 +30,6 @@ async function carregarItens(idItemSelecionado = null) {
         selectItens.appendChild(option);
       });
       
-      // Seleciona o item atual da loja
       if(idItemSelecionado) {
         selectItens.value = idItemSelecionado;
       }
@@ -43,7 +41,6 @@ async function carregarItens(idItemSelecionado = null) {
   }
 }
 
-// Padrão: editarItens.js (função buscar())
 async function carregarDadosEdicao() {
   try {
     const retorno = await fetch(`../../php/loja/loja_get.php?id=${idLojaAtual}`);
@@ -59,15 +56,11 @@ async function carregarDadosEdicao() {
     
     document.getElementById('nome_loja').value = dadosLoja.nome_loja;
 
-    // Carrega os itens e JÁ seleciona o item da loja
     await carregarItens(dadosLoja.id_itens); 
 
     const tipoSwitch = document.getElementById('storeTypeSwitch');
-    // tipo_loja == 1 (Compra) -> checked = true
     tipoSwitch.checked = (dadosLoja.tipo_loja == 1); 
     tipoSwitch.disabled = true;
-
-    // ... (lógica para desabilitar label) ...
 
   } catch (error) {
     console.error("Erro ao carregar dados da loja:", error);
@@ -77,9 +70,8 @@ async function carregarDadosEdicao() {
 
 async function salvarEdicao() {
   const nome = document.getElementById("nome_loja").value.trim();
-  const id_itens = document.getElementById("id_itens").value; // Pega "" se nada for selecionado
+  const id_itens = document.getElementById("id_itens").value;
 
-  // Validação MODIFICADA: (!id_itens) foi removido
   if (!nome) {
     alert("O nome da loja é obrigatório!");
     return;
@@ -108,6 +100,34 @@ async function salvarEdicao() {
   } catch (error) {
     console.error('Erro ao salvar:', error);
     alert('Ocorreu um erro de comunicação.');
+  }
+}
+
+async function excluirLoja() {
+  if (!confirm("Tem certeza que deseja excluir esta loja? Esta ação não pode ser desfeita.")) {
+    return;
+  }
+
+  try {
+    const fd = new FormData();
+    fd.append('id_loja', idLojaAtual);
+
+    const retorno = await fetch("../../php/loja/loja_excluir.php", {
+      method: "POST",
+      body: fd
+    });
+    
+    const resposta = await retorno.json();
+    
+    if (resposta.status === "ok") {
+      alert("SUCESSO: " + resposta.mensagem);
+      window.location.href = 'lojas.html';
+    } else {
+      alert("ERRO: " + resposta.mensagem);
+    }
+  } catch (error) {
+    console.error("Erro ao excluir:", error);
+    alert("Ocorreu um erro de comunicação.");
   }
 }
 

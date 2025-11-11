@@ -8,7 +8,7 @@ $retorno = [
     'data' => []
 ];
 
-// Buscar um item específico (para edição)
+// Buscar uma loja específica (para edição)
 if (isset($_GET['id'])) {
     $id_loja = (int)$_GET['id'];
     
@@ -28,10 +28,11 @@ if (isset($_GET['id'])) {
     }
     $stmt->close();
 } 
-// Buscar todos os itens (para listagem)
+// Buscar todas as lojas de outros usuários (para listagem)
 else {
     $id_pessoa_logada = $_SESSION['id_pessoa'] ?? 0;
 
+    // Busca todas as lojas que NÃO são do usuário logado
     $stmt = $conexao->prepare("SELECT * FROM Loja WHERE id_pessoa != ?");
     $stmt->bind_param("i", $id_pessoa_logada);
     $stmt->execute();

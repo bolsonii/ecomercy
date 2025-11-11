@@ -24,7 +24,6 @@ if (empty($nome_loja) || !in_array($tipo_loja, [1, 2])) {
     exit;
 }
 
-// Converte 0 (ou vazio) para NULL, para o banco de dados
 $id_itens = ($id_itens_input > 0) ? $id_itens_input : NULL;
 
 // Valida se o usuário já tem uma loja desse tipo
@@ -42,7 +41,6 @@ $check->close();
 
 // Inserção
 $stmt = $conexao->prepare("INSERT INTO Loja(nome_loja, id_pessoa, id_itens, tipo_loja) VALUES(?, ?, ?, ?)");
-// O bind_param 'i' para id_itens aceita a variável $id_itens sendo NULL
 $stmt->bind_param("siii", $nome_loja, $id_pessoa, $id_itens, $tipo_loja);
 $stmt->execute();
 

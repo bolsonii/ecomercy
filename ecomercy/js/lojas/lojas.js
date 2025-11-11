@@ -29,7 +29,7 @@ function criarCardHTML(loja, isUsuario = false) {
 
   const itemInfoHTML = (loja.id_itens && loja.id_itens > 0)
     ? `<p><i class="fas fa-box"></i> Item principal (ID): ${loja.id_itens}</p>`
-    : `<p><i class="fas fa-box"></i> Sem item principal definido</p>`; // Ou pode ser só "" se preferir
+    : `<p><i class="fas fa-box"></i> Sem item principal definido</p>`;
 
   return `
         <div class="${isUsuario ? "col-12" : "col-md-6 col-lg-4"}">
@@ -53,22 +53,24 @@ function criarCardHTML(loja, isUsuario = false) {
 }
 
 async function excluirLoja(id) {
-  if (
-    !confirm(
-      "Tem certeza que deseja excluir esta loja? Esta ação não pode ser desfeita."
-    )
-  ) {
+  if (!confirm("Tem certeza que deseja excluir esta loja? Esta ação não pode ser desfeita.")) {
     return;
   }
 
   try {
-    // Endpoint simplificado, sem 'tipo'
-    const retorno = await fetch(`../../php/loja/loja_excluir.php?id=${id}`);
+    const fd = new FormData();
+    fd.append('id_loja', id);
+
+    const retorno = await fetch("../../php/loja/loja_excluir.php", {
+      method: "POST",
+      body: fd
+    });
+    
     const resposta = await retorno.json();
     
     if (resposta.status === "ok") {
       alert("SUCESSO: " + resposta.mensagem);
-      carregarMinhasLojas(); // Recarrega
+      carregarMinhasLojas();
     } else {
       alert("ERRO: " + resposta.mensagem);
     }
@@ -90,7 +92,6 @@ async function carregarMinhasLojas() {
       throw new Error(resposta.mensagem);
     }
 
-    // Lógica simplificada: resposta.data é um array
     if (resposta.data.length > 0) {
       resposta.data.forEach((loja) => {
         containerUsuario.innerHTML += criarCardHTML(loja, true);

@@ -8,13 +8,13 @@ document
     event.preventDefault();
 
     const nome = document.getElementById("nome_loja").value;
-    const id_itens = document.getElementById("id_itens").value; // Pega "" se nada for selecionado
+    const id_itens = document.getElementById("id_itens").value;
     const tipoSwitch = document.getElementById("storeTypeSwitch");
 
     const tipo = tipoSwitch.checked ? 1 : 2;
 
-    if (!nome.trim()) {
-      alert("O nome da loja é obrigatório!");
+    if (!nome.trim() || !id_itens) {
+      alert("Preencha o nome da loja e selecione um item!");
       return;
     }
     salvarDadosLoja(nome, id_itens, tipo);
@@ -44,34 +44,14 @@ async function carregarItens() {
   }
 }
 
-document
-  .getElementById("criar_loja")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-
-    const nome = document.getElementById("nome_loja").value;
-    const id_itens = document.getElementById("id_itens").value;
-    const tipoSwitch = document.getElementById("storeTypeSwitch");
-
-    // Mudança: 'compra' (marcado) = 1; 'venda' (desmarcado) = 2
-    const tipo = tipoSwitch.checked ? 1 : 2;
-
-    if (!nome.trim() || !id_itens) {
-      alert("Preencha o nome da loja e selecione um item!");
-      return;
-    }
-    salvarDadosLoja(nome, id_itens, tipo);
-  });
-
 // Padrão: criarItens.js (função novo())
 async function salvarDadosLoja(nome, id_itens, tipo_loja) {
   const fd = new FormData();
   fd.append("nome_loja", nome);
   fd.append("id_itens", id_itens);
-  fd.append("tipo_loja", tipo_loja); // Campo atualizado
+  fd.append("tipo_loja", tipo_loja);
 
   try {
-    // Padrão: POST para '..._set.php'
     const retorno = await fetch("../../php/loja/loja_set.php", {
       method: "POST",
       body: fd,
