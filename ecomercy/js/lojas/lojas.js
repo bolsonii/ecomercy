@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function criarCardHTML(loja, isUsuario = false) {
   const imagemSrc = "../../assets/lojas/padrao.jpeg";
+  
   const classeCard = isUsuario ? "user-loja-card" : "";
   const etiqueta = isUsuario
     ? '<span class="badge user-badge position-absolute top-0 start-0 m-3">Sua Loja</span>'
     : "";
 
-  // Mapeia tipo_loja (int) para texto
   const tipoInfo = {
     texto: loja.tipo_loja == 1 ? "Compra" : "Venda",
     icone: loja.tipo_loja == 1 ? "shopping-cart" : "tags",
@@ -27,14 +27,16 @@ function criarCardHTML(loja, isUsuario = false) {
         `
     : "";
 
+  const itemInfoHTML = (loja.id_itens && loja.id_itens > 0)
+    ? `<p><i class="fas fa-box"></i> Item principal (ID): ${loja.id_itens}</p>`
+    : `<p><i class="fas fa-box"></i> Sem item principal definido</p>`; // Ou pode ser só "" se preferir
+
   return `
         <div class="${isUsuario ? "col-12" : "col-md-6 col-lg-4"}">
             <div class="card-loja ${classeCard} position-relative">
                 ${botoesHTML} 
                 ${etiqueta}
-                <img src="${imagemSrc}" class="card-img-top" alt="Capa da loja ${
-    loja.nome_loja
-  }">
+                <img src="${imagemSrc}" class="card-img-top" alt="Capa da loja ${loja.nome_loja}">
                 <div class="card-body">
                     <h5 class="card-titulo">${loja.nome_loja}</h5>
                     <h6 class="card-subtitulo mb-3">
@@ -42,9 +44,7 @@ function criarCardHTML(loja, isUsuario = false) {
                         Loja de ${tipoInfo.texto}
                     </h6>
                     <div class="loja-info mt-4">
-                        <p><i class="fas fa-box"></i> Item principal (ID): ${
-                          loja.id_itens
-                        }</p>
+                        ${itemInfoHTML}
                     </div>
                 </div>
             </div>

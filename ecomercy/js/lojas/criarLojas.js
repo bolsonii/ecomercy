@@ -2,6 +2,24 @@ document.addEventListener("DOMContentLoaded", function () {
   carregarItens();
 });
 
+document
+  .getElementById("criar_loja")
+  .addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const nome = document.getElementById("nome_loja").value;
+    const id_itens = document.getElementById("id_itens").value; // Pega "" se nada for selecionado
+    const tipoSwitch = document.getElementById("storeTypeSwitch");
+
+    const tipo = tipoSwitch.checked ? 1 : 2;
+
+    if (!nome.trim()) {
+      alert("O nome da loja é obrigatório!");
+      return;
+    }
+    salvarDadosLoja(nome, id_itens, tipo);
+  });
+
 async function carregarItens() {
   const selectItens = document.getElementById("id_itens");
   selectItens.innerHTML = '<option value="">Carregando...</option>';

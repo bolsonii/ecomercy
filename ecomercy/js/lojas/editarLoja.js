@@ -46,7 +46,6 @@ async function carregarItens(idItemSelecionado = null) {
 // Padrão: editarItens.js (função buscar())
 async function carregarDadosEdicao() {
   try {
-    // Padrão: ..._get.php?id=...
     const retorno = await fetch(`../../php/loja/loja_get.php?id=${idLojaAtual}`);
     const resposta = await retorno.json();
 
@@ -78,23 +77,26 @@ async function carregarDadosEdicao() {
 
 async function salvarEdicao() {
   const nome = document.getElementById("nome_loja").value.trim();
-  const id_itens = document.getElementById("id_itens").value;
+  const id_itens = document.getElementById("id_itens").value; // Pega "" se nada for selecionado
 
-  if (!nome || !id_itens) {
-    alert("Preencha todos os campos!");
+  // Validação MODIFICADA: (!id_itens) foi removido
+  if (!nome) {
+    alert("O nome da loja é obrigatório!");
     return;
   }
 
   const fd = new FormData();
   fd.append('nome_loja', nome);
-  fd.append('id_itens', id_itens);
-  // Não precisamos enviar o 'tipo', ele não pode ser alterado.
+  fd.append('id_itens', id_itens); 
 
   try {
-    const retorno = await fetch(`../../php/loja/loja_update.php?id=${idLojaAtual}`, {
-      method: 'POST',
-      body: fd
-    });
+    const retorno = await fetch(
+      `../../php/loja/loja_update.php?id=${idLojaAtual}`,
+      {
+        method: "POST",
+        body: fd,
+      }
+    );
 
     const resposta = await retorno.json();
     if (resposta.status === 'ok') {

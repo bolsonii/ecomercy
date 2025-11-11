@@ -13,15 +13,19 @@ if (!isset($_SESSION['id_pessoa'])) {
 
 $id_pessoa = $_SESSION['id_pessoa'];
 $nome_loja = $_POST['nome_loja'] ?? '';
-$id_itens = (int)($_POST['id_itens'] ?? 0);
+$id_itens_input = (int)($_POST['id_itens'] ?? 0);
 $tipo_loja = (int)($_POST['tipo_loja'] ?? 0); // 1 para Compra, 2 para Venda
 
-if (empty($nome_loja) || $id_itens <= 0 || !in_array($tipo_loja, [1, 2])) {
-    $retorno['mensagem'] = 'Dados inválidos (Nome, Item ou Tipo).';
+// Validação MODIFICADA: id_itens não é mais obrigatório
+if (empty($nome_loja) || !in_array($tipo_loja, [1, 2])) {
+    $retorno['mensagem'] = 'Dados inválidos (Nome ou Tipo).';
     header("Content-type:application/json;charset:utf-8");
     echo json_encode($retorno);
     exit;
 }
+
+// Converte 0 (ou vazio) para NULL, para o banco de dados
+$id_itens = ($id_itens_input > 0) ? $id_itens_input : NULL;
 
 // Valida se o usuário já tem uma loja desse tipo
 $check = $conexao->prepare("SELECT id_loja FROM Loja WHERE id_pessoa = ? AND tipo_loja = ?");
@@ -36,17 +40,14 @@ if ($check->get_result()->num_rows > 0) {
 }
 $check->close();
 
-// Inserção do sqll
+// Inserção
 $stmt = $conexao->prepare("INSERT INTO Loja(nome_loja, id_pessoa, id_itens, tipo_loja) VALUES(?, ?, ?, ?)");
+// O bind_param 'i' para id_itens aceita a variável $id_itens sendo NULL
 $stmt->bind_param("siii", $nome_loja, $id_pessoa, $id_itens, $tipo_loja);
 $stmt->execute();
 
 if ($stmt->affected_rows > 0) {
-    $retorno = [
-        'status' => 'ok',
-        'mensagem' => 'Loja criada com sucesso!',
-        'data' => ['id' => $stmt->insert_id]
-    ];
+    $retorno = ['status' => 'ok', 'mensagem' => 'Loja criada com sucesso!'];
 } else {
     $retorno['mensagem'] = 'Falha ao criar a loja: ' . $stmt->error;
 }
@@ -56,3 +57,4 @@ $conexao->close();
 
 header("Content-type:application/json;charset:utf-8");
 echo json_encode($retorno);
+?>
