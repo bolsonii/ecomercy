@@ -1,26 +1,64 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Recupera o índice do item a ser editado
-  const index = localStorage.getItem("editMateriais");
-  // Recupera a lista de itens do localStorage
-  const lista = JSON.parse(localStorage.getItem("materiais"));
-  // Se existir o item, preenche os campos do formulário
-  if (index !== null && lista && lista[index]) {
-    document.getElementById("nome_material").value = lista[index].nome;
-    document.getElementById("preco_material").value = lista[index].preco;
-    document.getElementById("categoria_material").value =
-      lista[index].categoria;
-  }
+var idMaterial = null;
 
-  // Salva as alterações ao clicar no botão
-  document
-    .getElementById("salvar_Material")
-    .addEventListener("click", function () {
-      lista[index].nome = document.getElementById("nome_material").value;
-      lista[index].id = document.getElementById("preco_material").value;
-      lista[index].categoria =
-        document.getElementById("categoria_material").value;
-      localStorage.setItem("materiais", JSON.stringify(lista));
-      localStorage.removeItem("editMateriais");
-      window.location.href = "../../pages/materiais/material.html";
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    idMaterial = urlParams.get('id');
+    
+    if (!idMaterial) {
+        alert("ID do material não encontrado!");
+        window.location.href = 'materiais.html';
+        return;
+    }
+
+    carregarDadosDoMaterial();
+
+    document.getElementById('editarMaterial').addEventListener('click', () => {
+        salvarAlteracoes();
     });
 });
+
+async function carregarDadosDoMaterial() {
+    const retorno = await fetch(`../../php/materiais/material_get.php?id=${idMaterial}`);
+    const resposta = await retorno.json();
+
+    if (resposta.status == "ok" && resposta.data.length > 0) {
+        const material = resposta.data[0];
+        
+        // 4. Popular o formulário
+        document.getElementById('idMaterial').value = material.id_materiais;
+        document.getElementById('novoNome').value = material.nome;
+        document.getElementById('novoPreco').value = material.preco;
+        document.getElementById('novoCategoria').value = material.categoria_produtos;
+    } else {
+        alert("Erro ao carregar os dados do material: " + resposta.mensagem);
+        window.location.href = 'materiais.html';
+    }
+}
+
+async function salvarAlteracoes() {
+    // 5. Coletar dados do formulário
+    var obj = {
+        nome: document.getElementById('novoNome').value,
+        preco: document.getElementById('novoPreco').value,
+        categoria_produtos: document.getElementById('novoCategoria').value
+    };
+
+    const fd = new FormData();
+    fd.append("nome", obj.nome);
+    fd.append("preco", obj.preco);
+    fd.append("categoria_produtos", obj.categoria_produtos);
+
+    const retorno = await fetch(`../../php/materiais/material_alterar.php?id=${idMaterial}`, {
+        method: 'POST',
+        body: fd
+    });
+
+    const resposta = await retorno.json();
+
+    if (resposta.status == "ok") {
+        alert(resposta.mensagem);
+        window.location.href = 'material.html';
+    } else {
+        alert("ERRO: " + resposta.mensagem);
+    }
+}

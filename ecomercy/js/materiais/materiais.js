@@ -1,56 +1,57 @@
-//Adicionar a lista de materiais com os botões de Editar e Excluir.
-const mapeamento_categorias = {
-  eletrodomesticos: "Eletrodomésticos",
-  eletronicos: "Eletrônicos",
-};
+document.addEventListener('DOMContentLoaded', () => {
+    carregarMateriaisDoBanco();
+});
 
-function carregaMateriais() {
-  if (localStorage.getItem("materiais")) {
-    var lista = JSON.parse(localStorage.getItem("materiais"));
-    var html = "";
-    html += "<table>";
-    html += "<tr>";
-    html += "<td>#</td>";
-    html += "<td>Nome</td>";
-    html += "<td>Preço</td>";
-    html += "<td>Categoria</td>";
-    html += "<td>#</td>";
-    html += "</tr>";
+document.getElementById('criarMaterial').addEventListener('click', () => {
+    window.location.href = 'criarMaterial.html';
+});
 
-    for (var i = 0; i < lista.length; i++) {
-      var chaveCategoria = lista[i].categoria;
-      var nomeExibido = mapeamento_categorias[chaveCategoria] || chaveCategoria;
+async function carregarMateriaisDoBanco() {
+    const retorno = await fetch("../../php/materiais/material_get.php");
+    const resposta = await retorno.json();
 
-      html += "<tr>";
-      html += "<td><a href='javascript:excluir(" + i + ")'>Excluir</a></td>";
-      html += "<td>" + lista[i].nome + "</td>";
-      html += "<td>" + lista[i].preco + "</td>";
-      html += "<td>" + nomeExibido + "</td>";
-      html += "<td><a href='javascript:editar(" + i + ")'>Editar</a></td>";
-      html += "</tr>";
+    if (resposta.status == "nok") {
+        document.getElementById('retorno').innerHTML = '<br><br><p class="paragrafo-top">Nenhum material cadastrado ainda.</p>';
+        return;
     }
 
-    html += "</table>";
-    document.getElementById("lista").innerHTML = html;
-  } else {
-    var obj = { nome: "teste", preco: "teste", categoria: "teste" };
-    var lista = [];
-    lista.push(obj);
-    localStorage.setItem("materiais", JSON.stringify(lista));
-    window.location.reload();
-  }
+    var lista = resposta.data;
+    var html = '<div class="row p-3 text-center">';
+
+    for (let i = 0; i < lista.length; i++) {
+        let precoFormatado = parseFloat(lista[i].preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        html += `
+        <div class="col-12 col-sm-6 col-lg-3 mb-3">
+            <div class="card h-100">
+            <button type="button" class="btn btn-outline-danger" aria-label="Close" onclick="excluir(${lista[i].id_materiais})"><i class="bi bi-x-lg"></i></button>
+                <div class="card-body">
+                    <h4 class="card-title">${lista[i].nome}</h4>
+                    <p class="card-text"><strong>Preço:</strong> ${precoFormatado}</p>
+                    <p class="card-text"><strong>Categoria:</strong> ${lista[i].categoria_produtos}</p>
+                    <a href="../../pages/materiais/editarMaterial.html?id=${lista[i].id_materiais}" class="btn btn-primary">Editar</a>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    html += '</div>';
+    document.getElementById('retorno').innerHTML = html;
 }
 
-carregaMateriais();
 
-function excluir(id) {
-  var materiais = JSON.parse(localStorage.getItem("materiais"));
-  materiais.splice(id, 1);
-  localStorage.setItem("materiais", JSON.stringify(materiais));
-  window.location.reload();
-}
+async function excluir(id) {
+    if (!confirm("Tem certeza que deseja excluir este material?")) {
+        return;
+    }
 
-function editar(id) {
-  localStorage.setItem("editMateriais", id);
-  window.location.href = "editarMaterial.html";
+    const retorno = await fetch(`../../php/materiais/material_excluir.php?id=${id}`);
+    const resposta = await retorno.json();
+
+    if (resposta.status == "ok") {
+        alert(resposta.mensagem);
+        window.location.reload();
+    } else {
+        alert("ERRO: " + resposta.mensagem);
+    }
 }

@@ -1,43 +1,29 @@
-function validarCamposMateriais() {
-  const nomeInput = document.getElementById("nome_material");
-  const precoInput = document.getElementById("preco_material");
-  const categoriaSelect = document.getElementById("categoria_material");
-  if (
-    !nomeInput.value.trim() ||
-    !precoInput.value.trim() ||
-    categoriaSelect.value === ""
-  ) {
-    alert("Preencha todos os campos!");
-    return false;
-  }
-  return true;
-}
-document
-  .getElementById("formMateriais")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (!validarCamposMateriais) {
-      return;
+document.getElementById('salvarMaterial').addEventListener('click', () => {
+    salvarNoBanco();
+});
+
+async function salvarNoBanco() {
+    var obj = { preco: "", categoria_produtos: "", nome: "" };
+    obj.nome = document.getElementById('nome').value;
+    obj.preco = document.getElementById('preco').value;
+    obj.categoria_produtos = document.getElementById('categoria_produtos').value;
+
+    const fd = new FormData();
+    fd.append("nome", obj.nome);
+    fd.append("preco", obj.preco);
+    fd.append("categoria_produtos", obj.categoria_produtos);
+
+    const retorno = await fetch("../../php/materiais/material_novo.php", {
+        method: 'POST',
+        body: fd
+    });
+
+    const resposta = await retorno.json();
+
+    if (resposta.status == "ok") {
+        alert(resposta.mensagem);
+        window.location.href = 'materiais.html';
+    } else {
+        alert("ERRO: " + resposta.mensagem);
     }
-
-    salvarDadosMateriais();
-    window.location.href = "../../pages/materiais/material.html";
-  });
-
-function salvarDadosMateriais() {
-  const nomeInput = document.getElementById("nome_material");
-  const precoInput = parseFloat(document.getElementById("preco_material"));
-  const categoriaSelect = document.getElementById("categoria_material");
-
-  const todosMateriais = JSON.parse(localStorage.getItem("materiais")) || [];
-
-  const novoMaterial = {
-    nome: nomeInput.value,
-    preco: precoInput.value,
-    categoria: categoriaSelect.value,
-  };
-
-  todosMateriais.push(novoMaterial);
-  localStorage.setItem("materiais", JSON.stringify(todosMateriais));
-  console.log("Salvo.");
 }
