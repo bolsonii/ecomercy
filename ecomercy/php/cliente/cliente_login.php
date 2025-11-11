@@ -1,48 +1,43 @@
 <?php
-    include_once('conexao.php');
-    //Configurando o padrão de retorno em todas as situações
-    $retorno = [
-        'status'   => '', //ok - nok
-        'mensagem' => '', //mensagem que envia para o front
-        'data'     => []
-    ];
+include_once('../conexao.php');
+session_start(); 
 
-    $stmt = $conexao->prepare("SELECT * FROM cliente WHERE usuario = ? AND senha = ?");
-    $stmt->bind_param("ss",$_GET['usuario'],$_POST['senha']);
+$retorno = [
+    'status'   => 'nok',
+    'mensagem' => 'Usuário ou senha inválidos.',
+    'data'     => []
+];
 
-    //Recuperando informações do banco de dados
-    //Vou executar a query
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+$usuario_form = $_POST['usuario'];
+$senha_form = $_POST['senha'];
 
-    //Criando um array vazio para receber o resultado do banco de dados
-    $tabela = [];
-    if($resultado->num_rows > 0){
-        while($linha = $resultado->fetch_assoc()){
-            $tabela[] = $linha;
-        }
+$stmt = $conexao->prepare("SELECT * FROM cliente WHERE usuario = ?");
+$stmt->bind_param("s", $usuario_form);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
-        session_start();
-        $_SESSION['usuario'] = $tabela;
+if ($resultado->num_rows > 0) {
+   $usuario_db = $resultado->fetch_assoc();
+
+        if ($senha_form === $usuario_db['senha']) {
+        
+        $_SESSION['id_cliente'] = $usuario_db['id'];
+        $_SESSION['usuario'] = $usuario_db['usuario'];
 
         $retorno = [
-            'status'   => 'ok', //ok - nok
-            'mensagem' => 'Sucesso, consulta efetuada.', //mensagem que envia para o front
-            'data'     => $tabela
-        ];
-
-    }else{
-        $retorno = [
-            'status'   => 'nok', //ok - nok
-            'mensagem' => 'Não há registros', //mensagem que envia para o front
-            'data'     => []
+            'status'   => 'ok',
+            'mensagem' => 'Login efetuado com sucesso.',
+            'data'     => [
+                'id' => $usuario_db['id'],
+                'usuario' => $usuario_db['usuario']
+            ]
         ];
     }
+}
 
-    //Fechamento do estado e conexão
-    $stmt->close();
-    $conexao->close();
-    
-    header("Content-type:application/json;charset:utf-8");
-    echo json_encode($retorno);
+$stmt->close();
+$conexao->close();
+
+header("Content-type:application/json;charset:utf-8");
+echo json_encode($retorno);
 ?>

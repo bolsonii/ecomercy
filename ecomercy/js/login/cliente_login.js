@@ -15,7 +15,7 @@ async function login(){
     );
     const resposta = await retorno.json();
     if(resposta.status == 'ok'){
-        window.location.href = 'pages/home/home.html';
+        window.location.href = 'pages/home/home.php';
     }else{
         alert('Credenciais inválidas.');
     }

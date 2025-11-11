@@ -1,3 +1,6 @@
+<?php
+  include_once('../../php/valida_sessao.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
