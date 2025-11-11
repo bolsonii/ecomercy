@@ -1,5 +1,7 @@
 <?php
 include_once('../conexao.php');
+session_start();
+
 $retorno = ['status' => 'ok', 'mensagem' => 'Lojas listadas', 'data' => []];
 
 // Pega o ID do usuário logado, ou 0 se não estiver logado

@@ -1,168 +1,151 @@
-// Variáveis globais para guardar os dados da loja que está sendo editada
 let idLojaAtual = null;
 let tipoLojaAtual = null;
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Pega os parâmetros da URL (ex: editarLoja.html?id=5&tipo=compra)
-    const urlParams = new URLSearchParams(window.location.search);
-    idLojaAtual = urlParams.get('id');
-    tipoLojaAtual = urlParams.get('tipo'); // 'compra' ou 'venda'
+async function carregarItens() {
+  const selectItens = document.getElementById("id_itens");
 
-    if (!idLojaAtual || !tipoLojaAtual) {
-        // Se não veio ID ou Tipo, esconde o formulário e mostra o aviso
-        mostrarAviso(true);
-        return;
+  try {
+    const response = await fetch("../../php/itens_listar.php");
+    const resposta = await response.json();
+
+    if (resposta.status === "ok" && resposta.data.length > 0) {
+      resposta.data.forEach((item) => {
+        const option = document.createElement("option");
+        option.value = item.id_itens;
+        option.textContent = item.nome_item;
+        selectItens.appendChild(option);
+      });
+    } else {
+      selectItens.innerHTML =
+        '<option value="" disabled>Nenhum item cadastrado</option>';
     }
+  } catch (error) {
+    console.error("Erro ao carregar itens:", error);
+    selectItens.innerHTML =
+      '<option value="" disabled>Erro ao carregar itens</option>';
+  }
+}
 
-    // Busca os dados da loja no backend para preencher o formulário
-    carregarDadosEdicao();
+document.addEventListener("DOMContentLoaded", function () {
+  // Pega os parâmetros da URL
+  const urlParams = new URLSearchParams(window.location.search);
+  idLojaAtual = urlParams.get("id");
+  tipoLojaAtual = urlParams.get("tipo");
 
-    // Adiciona listener ao botão de SALVAR
-    document.getElementById("salvar_alteracoes").addEventListener("click", salvarEdicao);
-    
-    // Adiciona listener ao botão de EXCLUIR
-    document.getElementById("excluir_loja").addEventListener("click", excluirLoja);
+  if (!idLojaAtual || !tipoLojaAtual) {
+    mostrarAviso(true);
+    return;
+  }
+  carregarItens();
+  carregarDadosEdicao();
+  document
+    .getElementById("salvar_alteracoes")
+    .addEventListener("click", salvarEdicao);
+  document
+    .getElementById("excluir_loja")
+    .addEventListener("click", excluirLoja);
 });
 
-/**
- * Busca os dados da loja do usuário e preenche o formulário
- */
 async function carregarDadosEdicao() {
-    try {
-        const retorno = await fetch("../php/loja/minha_loja.php");
-        const resposta = await retorno.json();
+  try {
+    // Buscar diretamente o registro específico seguindo o padrão de itens (loja_get.php?id=..&tipo=..)
+    const retorno = await fetch(`../../php/loja/loja_get.php?id=${idLojaAtual}&tipo=${tipoLojaAtual}`);
+    const resposta = await retorno.json();
 
-        if (resposta.status !== 'ok') {
-            throw new Error(resposta.mensagem);
-        }
+    if (resposta.status !== 'ok' || !resposta.data || resposta.data.length === 0) {
+      mostrarAviso(true);
+      return;
+    }
 
-        let dadosLoja = null;
-        
-        // Verifica qual loja (compra ou venda) corresponde ao ID da URL
-        if (tipoLojaAtual === 'compra' && resposta.data.compra && resposta.data.compra.id_loja_compra == idLojaAtual) {
-            dadosLoja = resposta.data.compra;
-        } else if (tipoLojaAtual === 'venda' && resposta.data.venda && resposta.data.venda.id_loja_venda == idLojaAtual) {
-            dadosLoja = resposta.data.venda;
-        }
+    const dadosLoja = resposta.data[0];
+    mostrarAviso(false);
+    document.getElementById('nome_loja').value = dadosLoja.nome_loja;
+    document.getElementById('id_itens').value = dadosLoja.id_itens;
 
-        if (dadosLoja) {
-            // Loja encontrada, preenche o formulário
-            mostrarAviso(false);
-            
-            // Assumindo que seu HTML tem 'nome_loja' e 'id_itens'
-            document.getElementById("nome_loja").value = dadosLoja.nome_loja;
-            document.getElementById("id_itens").value = dadosLoja.id_itens;
+    const tipoSwitch = document.getElementById('storeTypeSwitch');
+    tipoSwitch.checked = tipoLojaAtual === 'compra';
+    tipoSwitch.disabled = true;
 
-            // Define o switch e desabilita (não se pode mudar o tipo de uma loja)
-            const tipoSwitch = document.getElementById("storeTypeSwitch");
-            tipoSwitch.checked = (tipoLojaAtual === "compra");
-            tipoSwitch.disabled = true; // Impede a alteração do tipo
-            
-            // Informa ao usuário que o tipo não pode ser mudado
-            const switchLabel = document.querySelector('label[for="storeTypeSwitch"]');
-            if (switchLabel) {
-                switchLabel.title = "O tipo da loja (Compra/Venda) não pode ser alterado após a criação.";
-                switchLabel.style.cursor = "not-allowed";
-            }
-
-        } else {
-            // Se não achou a loja (ex: ID errado na URL), mostra o aviso
-            mostrarAviso(true);
-        }
-
-    } catch (error) {
-        console.error("Erro ao carregar dados da loja:", error);
-        mostrarAviso(true);
-    }// Adicionar após a validação básica e antes do INSERT
-
+    const switchLabel = document.querySelector('label[for="storeTypeSwitch"]');
+    if (switchLabel) {
+      switchLabel.title = 'O tipo da loja (Compra/Venda) não pode ser alterado após a criação.';
+      switchLabel.style.cursor = 'not-allowed';
+    }
+  } catch (error) {
+    console.error("Erro ao carregar dados da loja:", error);
+    mostrarAviso(true);
+  }
 }
 
-/**
- * Envia as alterações para o backend (UPDATE)
- */
 async function salvarEdicao() {
-    const nome = document.getElementById("nome_loja").value;
-    const id_itens = document.getElementById("id_itens").value;
-    
-    // Validação simples
-    if (!nome.trim() || !id_itens.trim()) {
-        alert("Preencha todos os campos!");
-        return;
-    }
+  const nome = document.getElementById("nome_loja").value.trim();
+  const id_itens = document.getElementById("id_itens").value.trim();
 
-    const fd = new FormData();
-    fd.append("id_loja", idLojaAtual);
-    fd.append("tipo", tipoLojaAtual);
-    fd.append("nome_loja", nome);
-    fd.append("id_itens", id_itens);
+  if (!nome || !id_itens) {
+    alert("Preencha todos os campos!");
+    return;
+  }
 
-    try {
-        const retorno = await fetch("../php/loja/loja_update.php", {
-            method: 'POST',
-            body: fd
-        });
+  const fd = new FormData();
+  fd.append('nome_loja', nome);
+  fd.append('id_itens', id_itens);
+  // tipo necessário para escolher tabela no backend
+  fd.append('tipo', tipoLojaAtual);
 
-        const resposta = await retorno.json();
-        
-        if (resposta.status == "ok") {
-            alert("SUCESSO: " + resposta.mensagem);
-            window.location.href = "lojas.html"; // Volta para a lista
-        } else {
-            alert("ERRO: " + resposta.mensagem);
-        }
-    } catch (error) {
-        console.error("Erro ao salvar:", error);
-        alert("Ocorreu um erro de comunicação.");
-    }
-}
+  try {
+    // Seguir padrão dos itens: enviar dados via POST e passar id via GET
+    const retorno = await fetch(`../../php/loja/loja_update.php?id=${idLojaAtual}`, {
+      method: 'POST',
+      body: fd
+    });
 
-/**
- * Envia o comando de exclusão para o backend (DELETE)
- */
-async function excluirLoja() {
-    // Confirmação crucial
-    if (!confirm("Tem certeza que deseja excluir esta loja? Esta ação não pode ser desfeita.")) {
-        return;
-    }
-
-    const fd = new FormData();
-    fd.append("id_loja", idLojaAtual);
-    fd.append("tipo", tipoLojaAtual);
-
-    try {
-        const retorno = await fetch("../php/loja/loja_excluir.php", {
-            method: 'POST',
-            body: fd
-        });
-
-        const resposta = await retorno.json();
-        
-        if (resposta.status == "ok") {
-            alert("SUCESSO: " + resposta.mensagem);
-            window.location.href = "lojas.html"; // Volta para a lista
-        } else {
-            alert("ERRO: " + resposta.mensagem);
-        }
-    } catch (error) {
-        console.error("Erro ao excluir:", error);
-        alert("Ocorreu um erro de comunicação.");
-    }
-}
-
-/**
- * Controla a exibição do formulário vs. mensagem de erro
- */
-function mostrarAviso(mostrar) {
-    const formWrapper = document.getElementById('form-wrapper');
-    const avisoSemLoja = document.getElementById('sem-loja-aviso');
-
-    if (mostrar) {
-        // Esconde o formulário e mostra o aviso
-        formWrapper.classList.add('d-none');
-        avisoSemLoja.classList.remove('d-none');
+    const resposta = await retorno.json();
+    if (resposta.status === 'ok') {
+      alert('SUCESSO: ' + resposta.mensagem);
+      window.location.href = 'lojas.html';
     } else {
-        // Mostra o formulário e esconde o aviso
-        avisoSemLoja.classList.add('d-none');
-        formWrapper.classList.remove('d-none');
+      alert('ERRO: ' + resposta.mensagem);
     }
+  } catch (error) {
+    console.error('Erro ao salvar:', error);
+    alert('Ocorreu um erro de comunicação.');
+  }
+}
+
+async function excluirLoja() {
+  if (
+    !confirm(
+      "Tem certeza que deseja excluir esta loja? Esta ação não pode ser desfeita."
+    )
+  ) {
+    return;
+  }
+
+  try {
+    // Seguir padrão dos itens: exclusão por GET passando id (aqui também o tipo)
+    const retorno = await fetch(`../../php/loja/loja_excluir.php?id=${idLojaAtual}&tipo=${tipoLojaAtual}`);
+    const resposta = await retorno.json();
+    if (resposta.status === 'ok') {
+      alert('SUCESSO: ' + resposta.mensagem);
+      window.location.href = 'lojas.html';
+    } else {
+      alert('ERRO: ' + resposta.mensagem);
+    }
+  } catch (error) {
+    console.error('Erro ao excluir:', error);
+    alert('Ocorreu um erro de comunicação.');
+  }
+}
+
+function mostrarAviso(mostrar) {
+  const formWrapper = document.getElementById("form-wrapper");
+  const avisoSemLoja = document.getElementById("sem-loja-aviso");
+
+  if (mostrar) {
+    formWrapper.classList.add("d-none");
+    avisoSemLoja.classList.remove("d-none");
+  } else {
+    avisoSemLoja.classList.add("d-none");
+    formWrapper.classList.remove("d-none");
+  }
 }
