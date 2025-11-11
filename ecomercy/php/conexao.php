@@ -2,7 +2,7 @@
 // Variáveis de conexão com o Banco de Dados
 $servidor = "localhost:3306";
 $usuario  = "root";
-$senha    = "#MySQL951";
+$senha    = "";
 $nome_banco = "Ecomercy";
 
 $conexao = new mysqli($servidor, $usuario, $senha, $nome_banco);
