@@ -3,7 +3,7 @@
 $servidor = "localhost:3306";
 $usuario  = "root";
 $senha    = "";
-$nome_banco = "comercy";
+$nome_banco = "Ecomercy";
 
 $conexao = new mysqli($servidor, $usuario, $senha, $nome_banco);
 if($conexao->connect_error){
