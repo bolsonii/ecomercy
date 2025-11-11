@@ -1,8 +1,9 @@
 <?php
-include_once('conexao.php');
+include_once('../conexao.php'); // Verifique se o 'conexao.php' está em ../
 $retorno = ['status' => 'ok', 'data' => []];
 
-$resultado = $conexao->query("SELECT id AS id_itens, nome AS nome_item FROM Itens ORDER BY nome");
+$sql = "SELECT id AS id_itens, nome AS nome_item FROM Itens ORDER BY nome";
+$resultado = $conexao->query($sql);
 
 if ($resultado && $resultado->num_rows > 0) {
     while ($row = $resultado->fetch_assoc()) {
@@ -13,3 +14,4 @@ if ($resultado && $resultado->num_rows > 0) {
 $conexao->close();
 header("Content-type:application/json;charset:utf-8");
 echo json_encode($retorno);
+?>

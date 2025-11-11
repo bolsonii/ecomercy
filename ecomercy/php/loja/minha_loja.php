@@ -2,7 +2,7 @@
 include_once('../conexao.php');
 session_start();
 
-$retorno = ['status' => 'nok', 'mensagem' => 'Erro ao buscar lojas', 'data' => []];
+$retorno = ['status' => 'nok', 'mensagem' => 'Erro ao buscar lojas'];
 
 if (!isset($_SESSION['id_pessoa'])) {
     $retorno['mensagem'] = 'Usuário não autenticado.';
@@ -12,37 +12,24 @@ if (!isset($_SESSION['id_pessoa'])) {
 }
 
 $id_pessoa = $_SESSION['id_pessoa'];
+$lojas_usuario = [];
 
-$loja_compra = null;
-$loja_venda = null;
+$stmt = $conexao->prepare("SELECT * FROM Loja WHERE id_pessoa = ? ORDER BY tipo_loja");
+$stmt->bind_param("i", $id_pessoa);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
-// Busca loja de compra
-$stmt_compra = $conexao->prepare("SELECT id_loja_compra, nome_loja, id_itens FROM Loja_compra WHERE id_pessoa = ? LIMIT 1");
-$stmt_compra->bind_param("i", $id_pessoa);
-$stmt_compra->execute();
-$resultado_compra = $stmt_compra->get_result();
-if ($resultado_compra->num_rows > 0) {
-    $loja_compra = $resultado_compra->fetch_assoc();
+if ($resultado->num_rows > 0) {
+    while ($row = $resultado->fetch_assoc()) {
+        $lojas_usuario[] = $row;
+    }
 }
-$stmt_compra->close();
-
-// Busca loja de venda
-$stmt_venda = $conexao->prepare("SELECT id_loja_venda, nome_loja, id_itens FROM Loja_vendas WHERE id_pessoa = ? LIMIT 1");
-$stmt_venda->bind_param("i", $id_pessoa);
-$stmt_venda->execute();
-$resultado_venda = $stmt_venda->get_result();
-if ($resultado_venda->num_rows > 0) {
-    $loja_venda = $resultado_venda->fetch_assoc();
-}
-$stmt_venda->close();
+$stmt->close();
 
 $retorno = [
     'status' => 'ok',
     'mensagem' => 'Lojas do usuário carregadas',
-    'data' => [
-        'compra' => $loja_compra, // Será null se não existir
-        'venda' => $loja_venda   // Será null se não existir
-    ]
+    'data' => $lojas_usuario // Agora é um array simples
 ];
 
 $conexao->close();

@@ -10,15 +10,18 @@ function criarCardHTML(loja, isUsuario = false) {
     ? '<span class="badge user-badge position-absolute top-0 start-0 m-3">Sua Loja</span>'
     : "";
 
-  // Adicionando o tipo ao objeto para os botões
-  const tipoLoja = loja.tipo.toLowerCase();
+  // Mapeia tipo_loja (int) para texto
+  const tipoInfo = {
+    texto: loja.tipo_loja == 1 ? "Compra" : "Venda",
+    icone: loja.tipo_loja == 1 ? "shopping-cart" : "tags",
+  };
 
   const botoesHTML = isUsuario
     ? `
-        <a href="editarLoja.html?id=${loja.id_loja}&tipo=${tipoLoja}" class="edit-store-btn" title="Editar Loja">
+        <a href="editarLoja.html?id=${loja.id_loja}" class="edit-store-btn" title="Editar Loja">
             <i class="fa-solid fa-pen-to-square"></i>
         </a>
-        <a href="#" onclick="excluirLoja(${loja.id_loja}, '${tipoLoja}')" class="delete-store-btn" title="Excluir Loja">
+        <a href="#" onclick="excluirLoja(${loja.id_loja})" class="delete-store-btn" title="Excluir Loja">
             <i class="fa-solid fa-trash"></i>
         </a>
         `
@@ -35,10 +38,8 @@ function criarCardHTML(loja, isUsuario = false) {
                 <div class="card-body">
                     <h5 class="card-titulo">${loja.nome_loja}</h5>
                     <h6 class="card-subtitulo mb-3">
-                        <i class="fas fa-${
-                          tipoLoja === "venda" ? "tags" : "shopping-cart"
-                        }"></i>
-                        Loja de ${loja.tipo}
+                        <i class="fas fa-${tipoInfo.icone}"></i>
+                        Loja de ${tipoInfo.texto}
                     </h6>
                     <div class="loja-info mt-4">
                         <p><i class="fas fa-box"></i> Item principal (ID): ${
@@ -51,7 +52,7 @@ function criarCardHTML(loja, isUsuario = false) {
     `;
 }
 
-async function excluirLoja(id, tipo) {
+async function excluirLoja(id) {
   if (
     !confirm(
       "Tem certeza que deseja excluir esta loja? Esta ação não pode ser desfeita."
@@ -61,13 +62,13 @@ async function excluirLoja(id, tipo) {
   }
 
   try {
-    const retorno = await fetch(
-      `../../php/loja/loja_excluir.php?id=${id}&tipo=${tipo}`
-    );
+    // Endpoint simplificado, sem 'tipo'
+    const retorno = await fetch(`../../php/loja/loja_excluir.php?id=${id}`);
     const resposta = await retorno.json();
+    
     if (resposta.status === "ok") {
       alert("SUCESSO: " + resposta.mensagem);
-      carregarMinhasLojas();
+      carregarMinhasLojas(); // Recarrega
     } else {
       alert("ERRO: " + resposta.mensagem);
     }
@@ -89,31 +90,12 @@ async function carregarMinhasLojas() {
       throw new Error(resposta.mensagem);
     }
 
-    let hasLoja = false;
-
-    if (resposta.data.compra) {
-      hasLoja = true;
-      const lojaCompra = {
-        id_loja: resposta.data.compra.id_loja_compra,
-        nome_loja: resposta.data.compra.nome_loja,
-        id_itens: resposta.data.compra.id_itens,
-        tipo: "Compra",
-      };
-      containerUsuario.innerHTML += criarCardHTML(lojaCompra, true);
-    }
-
-    if (resposta.data.venda) {
-      hasLoja = true;
-      const lojaVenda = {
-        id_loja: resposta.data.venda.id_loja_venda,
-        nome_loja: resposta.data.venda.nome_loja,
-        id_itens: resposta.data.venda.id_itens,
-        tipo: "Venda",
-      };
-      containerUsuario.innerHTML += criarCardHTML(lojaVenda, true);
-    }
-
-    if (!hasLoja) {
+    // Lógica simplificada: resposta.data é um array
+    if (resposta.data.length > 0) {
+      resposta.data.forEach((loja) => {
+        containerUsuario.innerHTML += criarCardHTML(loja, true);
+      });
+    } else {
       containerUsuario.innerHTML = `
                 <div class="no-store-message">
                     <h4>Você ainda não criou nenhuma loja.</h4>
@@ -139,18 +121,17 @@ async function carregarOutrasLojas() {
       throw new Error(resposta.mensagem);
     }
 
-    let outrasLojasHTML = "";
     if (resposta.data.length > 0) {
+      let outrasLojasHTML = "";
       resposta.data.forEach((loja) => {
         outrasLojasHTML += criarCardHTML(loja, false);
       });
+      containerOutras.innerHTML = outrasLojasHTML;
     } else {
-      outrasLojasHTML = "<p>Nenhuma outra loja encontrada no momento.</p>";
+      containerOutras.innerHTML = "<p>Nenhuma outra loja encontrada no momento.</p>";
     }
-    containerOutras.innerHTML = outrasLojasHTML;
   } catch (error) {
     console.error("Erro ao listar outras lojas:", error);
-    containerOutras.innerHTML =
-      "<p class='text-danger'>Erro ao carregar outras lojas.</p>";
+    containerOutras.innerHTML = "<p class='text-danger'>Erro ao carregar outras lojas.</p>";
   }
 }
