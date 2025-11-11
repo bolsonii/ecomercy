@@ -31,8 +31,8 @@ if ($resultado->num_rows > 0) {
 
 $retorno['data'] = $lojas;
 
-$stmt->close();
-$conexao->close();
-header("Content-type:application/json;charset:utf-8");
-echo json_encode($retorno);
+ $stmt->close();
+ $conexao->close();
+ header('Content-Type: application/json; charset=utf-8');
+ echo json_encode($retorno);
 ?>
