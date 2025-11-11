@@ -11,11 +11,11 @@
 
     if(isset($_GET['id'])){ //Isset verifica se uma variável foi definida e se seu valor é != de null;
         // RECEBENDO O ID por GET
-        $stmt = $conexao->prepare("SELECT id_tutorial AS id, titulo, descricao, categoria_tutorial FROM tutorial WHERE id_tutorial = ?"); // Preparando a consulta; 
+        $stmt = $conexao->prepare("SELECT id_tutorial AS id, titulo, descricao, categoria FROM tutorial WHERE id_tutorial = ?"); // Preparando a consulta; 
         $stmt->bind_param("i",$_GET['id']); // Associa o id = ? ao id recebido por get; 
     }else{
         // SEM RECEBER O ID por GET
-        $stmt = $conexao->prepare("SELECT id_tutorial AS id, titulo, descricao, categoria_tutorial FROM tutorial");
+        $stmt = $conexao->prepare("SELECT id_tutorial AS id, titulo, descricao, categoria FROM tutorial");
     }
     
     // Recuperando informações do banco de dados

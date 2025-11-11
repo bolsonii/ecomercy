@@ -8,19 +8,13 @@ $retorno = [
     'data' => []
 ];
 
-// Seguir padrão do CRUD de itens: receber ID via GET
 if (!isset($_GET['id'])) {
-    $retorno = [
-        'status' => 'nok',
-        'mensagem' => 'Não posso alterar um registro sem um ID informado.',
-        'data' => []
-    ];
+    $retorno['mensagem'] = 'Não posso alterar um registro sem um ID informado.';
     header('Content-type:application/json;charset:utf-8');
     echo json_encode($retorno);
     exit;
 }
 
-// Valida sessão
 if (!isset($_SESSION['id_pessoa'])) {
     $retorno['mensagem'] = 'Usuário não autenticado.';
     header('Content-type:application/json;charset:utf-8');
@@ -34,13 +28,8 @@ $nome_loja = trim($_POST['nome_loja'] ?? '');
 $id_itens = (int)($_POST['id_itens'] ?? 0);
 $tipo = strtolower(trim($_POST['tipo'] ?? ''));
 
-// Validação básica (mantendo validações similares ao padrão de itens)
-if ($nome_loja === '' || $id_itens <= 0 || ($tipo !== 'compra' && $tipo !== 'venda')) {
-    $retorno = [
-        'status' => 'nok',
-        'mensagem' => 'Dados inválidos ou incompletos.',
-        'data' => []
-    ];
+if (empty($nome_loja) || $id_itens <= 0 || ($tipo !== 'compra' && $tipo !== 'venda')) {
+    $retorno['mensagem'] = 'Dados inválidos ou incompletos.';
     header('Content-type:application/json;charset:utf-8');
     echo json_encode($retorno);
     exit;
@@ -62,11 +51,7 @@ if ($stmt->affected_rows > 0) {
         'data' => []
     ];
 } else {
-    $retorno = [
-        'status' => 'nok',
-        'mensagem' => 'Falha ao alterar o registro ou nenhum dado foi alterado.',
-        'data' => []
-    ];
+    $retorno['mensagem'] = 'Falha ao alterar o registro ou nenhum dado foi alterado.';
 }
 
 $stmt->close();
@@ -74,4 +59,3 @@ $conexao->close();
 
 header('Content-type:application/json;charset:utf-8');
 echo json_encode($retorno);
-?>

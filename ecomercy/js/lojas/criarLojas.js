@@ -4,16 +4,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function carregarItens() {
   const selectItens = document.getElementById("id_itens");
+  selectItens.innerHTML = '<option value="">Carregando...</option>';
 
   try {
-    const response = await fetch("../../php/itens_listar.php");
+    const response = await fetch("../../php/itens_listar.php"); //
     const resposta = await response.json();
 
     if (resposta.status === "ok" && resposta.data.length > 0) {
+      selectItens.innerHTML =
+        '<option value="" disabled selected>Selecione um item</option>';
       resposta.data.forEach((item) => {
         const option = document.createElement("option");
         option.value = item.id_itens;
-        option.textContent = item.nome_item; // Ex: "Placa-mãe"
+        option.textContent = item.nome_item;
         selectItens.appendChild(option);
       });
     } else {
@@ -36,29 +39,15 @@ document
     const id_itens = document.getElementById("id_itens").value;
     const tipoSwitch = document.getElementById("storeTypeSwitch");
 
-    // 'compra' se o switch estiver marcado (true), 'venda' se não (false)
     const tipo = tipoSwitch.checked ? "compra" : "venda";
 
-    if (!validarCamposLoja(nome, id_itens)) {
+    if (!nome.trim() || !id_itens) {
+      alert("Preencha o nome da loja e selecione um item!");
       return;
     }
 
     salvarDadosLoja(nome, id_itens, tipo);
   });
-
-function validarCamposLoja(nome, id_itens) {
-  if (!nome.trim() || !id_itens.trim()) {
-    alert("Preencha o nome da loja e selecione um item!");
-    return false;
-  }
-
-  if (isNaN(parseInt(id_itens))) {
-    alert("O ID do item deve ser um número válido.");
-    return false;
-  }
-
-  return true;
-}
 
 async function salvarDadosLoja(nome, id_itens, tipo) {
   const fd = new FormData();
@@ -78,7 +67,7 @@ async function salvarDadosLoja(nome, id_itens, tipo) {
       alert("SUCESSO: A loja foi criada com sucesso!");
       window.location.href = "lojas.html";
     } else {
-      alert("ERRO: " + resposta.mensagem);
+      alert("ERRO: ".toUpperCase() + resposta.mensagem);
     }
   } catch (error) {
     console.error("Erro na requisição:", error);

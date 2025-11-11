@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   carregarOutrasLojas();
 });
 
-
 function criarCardHTML(loja, isUsuario = false) {
   const imagemSrc = "../../assets/lojas/padrao.jpeg";
   const classeCard = isUsuario ? "user-loja-card" : "";
@@ -11,19 +10,24 @@ function criarCardHTML(loja, isUsuario = false) {
     ? '<span class="badge user-badge position-absolute top-0 start-0 m-3">Sua Loja</span>'
     : "";
 
-  const editButtonHTML = isUsuario
+  // Adicionando o tipo ao objeto para os botões
+  const tipoLoja = loja.tipo.toLowerCase();
+
+  const botoesHTML = isUsuario
     ? `
-        <a href="editarLoja.html?id=${
-          loja.id_loja
-        }&tipo=${loja.tipo.toLowerCase()}" class="edit-store-btn" title="Editar Loja">
+        <a href="editarLoja.html?id=${loja.id_loja}&tipo=${tipoLoja}" class="edit-store-btn" title="Editar Loja">
             <i class="fa-solid fa-pen-to-square"></i>
-        </a>`
+        </a>
+        <a href="#" onclick="excluirLoja(${loja.id_loja}, '${tipoLoja}')" class="delete-store-btn" title="Excluir Loja">
+            <i class="fa-solid fa-trash"></i>
+        </a>
+        `
     : "";
 
   return `
         <div class="${isUsuario ? "col-12" : "col-md-6 col-lg-4"}">
             <div class="card-loja ${classeCard} position-relative">
-                ${editButtonHTML} 
+                ${botoesHTML} 
                 ${etiqueta}
                 <img src="${imagemSrc}" class="card-img-top" alt="Capa da loja ${
     loja.nome_loja
@@ -32,7 +36,7 @@ function criarCardHTML(loja, isUsuario = false) {
                     <h5 class="card-titulo">${loja.nome_loja}</h5>
                     <h6 class="card-subtitulo mb-3">
                         <i class="fas fa-${
-                          loja.tipo === "Venda" ? "tags" : "shopping-cart"
+                          tipoLoja === "venda" ? "tags" : "shopping-cart"
                         }"></i>
                         Loja de ${loja.tipo}
                     </h6>
@@ -47,6 +51,31 @@ function criarCardHTML(loja, isUsuario = false) {
     `;
 }
 
+async function excluirLoja(id, tipo) {
+  if (
+    !confirm(
+      "Tem certeza que deseja excluir esta loja? Esta ação não pode ser desfeita."
+    )
+  ) {
+    return;
+  }
+
+  try {
+    const retorno = await fetch(
+      `../../php/loja/loja_excluir.php?id=${id}&tipo=${tipo}`
+    );
+    const resposta = await retorno.json();
+    if (resposta.status === "ok") {
+      alert("SUCESSO: " + resposta.mensagem);
+      carregarMinhasLojas();
+    } else {
+      alert("ERRO: " + resposta.mensagem);
+    }
+  } catch (error) {
+    console.error("Erro ao excluir:", error);
+    alert("Ocorreu um erro de comunicação.");
+  }
+}
 
 async function carregarMinhasLojas() {
   const containerUsuario = document.getElementById("container-loja-usuario");
@@ -84,7 +113,6 @@ async function carregarMinhasLojas() {
       containerUsuario.innerHTML += criarCardHTML(lojaVenda, true);
     }
 
-    // Se não tem nenhuma, mostra a mensagem para criar
     if (!hasLoja) {
       containerUsuario.innerHTML = `
                 <div class="no-store-message">
@@ -95,17 +123,16 @@ async function carregarMinhasLojas() {
     }
   } catch (error) {
     console.error("Erro ao carregar lojas do usuário:", error);
-    containerUsuario.innerHTML = `<p class='text-danger'>Erro ao carregar sua(s) loja(s). Tente recarregar a página.</p>`;
+    containerUsuario.innerHTML = `<p class='text-danger'>Erro ao carregar sua(s) loja(s).</p>`;
   }
 }
-
 
 async function carregarOutrasLojas() {
   const containerOutras = document.getElementById("container-outras-lojas");
   containerOutras.innerHTML = "";
 
   try {
-    const retorno = await fetch("../../php/loja/lojas_listar.php");
+    const retorno = await fetch("../../php/loja/loja_get.php");
     const resposta = await retorno.json();
 
     if (resposta.status !== "ok") {
@@ -124,6 +151,6 @@ async function carregarOutrasLojas() {
   } catch (error) {
     console.error("Erro ao listar outras lojas:", error);
     containerOutras.innerHTML =
-      "<p class='text-danger'>Erro ao carregar outras lojas. Tente recarregar a página.</p>";
+      "<p class='text-danger'>Erro ao carregar outras lojas.</p>";
   }
 }

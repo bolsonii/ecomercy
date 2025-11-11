@@ -1,14 +1,38 @@
 let idLojaAtual = null;
 let tipoLojaAtual = null;
 
+document.addEventListener("DOMContentLoaded", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  idLojaAtual = urlParams.get("id");
+  tipoLojaAtual = urlParams.get("tipo");
+
+  if (!idLojaAtual || !tipoLojaAtual) {
+    mostrarAviso(true);
+    return;
+  }
+  
+  // Inicia carregamento
+  carregarItens(); // Carrega o dropdown de itens
+  carregarDadosEdicao(); // Carrega os dados da loja atual
+
+  document
+    .getElementById("salvar_alteracoes")
+    .addEventListener("click", salvarEdicao);
+  
+  const btnExcluir = document.getElementById("excluir_loja");
+  if(btnExcluir) {
+    btnExcluir.style.display = 'none'; // Apenas esconde, caso o HTML não seja atualizado
+  }
+});
+
 async function carregarItens() {
   const selectItens = document.getElementById("id_itens");
-
   try {
-    const response = await fetch("../../php/itens_listar.php");
+    const response = await fetch("../../php/itens_listar.php"); //
     const resposta = await response.json();
 
     if (resposta.status === "ok" && resposta.data.length > 0) {
+       selectItens.innerHTML = ''; // Limpa "carregando"
       resposta.data.forEach((item) => {
         const option = document.createElement("option");
         option.value = item.id_itens;
@@ -26,50 +50,36 @@ async function carregarItens() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Pega os parâmetros da URL
-  const urlParams = new URLSearchParams(window.location.search);
-  idLojaAtual = urlParams.get("id");
-  tipoLojaAtual = urlParams.get("tipo");
-
-  if (!idLojaAtual || !tipoLojaAtual) {
-    mostrarAviso(true);
-    return;
-  }
-  carregarItens();
-  carregarDadosEdicao();
-  document
-    .getElementById("salvar_alteracoes")
-    .addEventListener("click", salvarEdicao);
-  document
-    .getElementById("excluir_loja")
-    .addEventListener("click", excluirLoja);
-});
-
 async function carregarDadosEdicao() {
   try {
-    // Buscar diretamente o registro específico seguindo o padrão de itens (loja_get.php?id=..&tipo=..)
-    const retorno = await fetch(`../../php/loja/loja_get.php?id=${idLojaAtual}&tipo=${tipoLojaAtual}`);
+    const retorno = await fetch(
+      `../../php/loja/loja_get.php?id=${idLojaAtual}&tipo=${tipoLojaAtual}`
+    );
     const resposta = await retorno.json();
 
-    if (resposta.status !== 'ok' || !resposta.data || resposta.data.length === 0) {
+    if (resposta.status !== "ok" || !resposta.data || resposta.data.length === 0) {
       mostrarAviso(true);
       return;
     }
 
     const dadosLoja = resposta.data[0];
     mostrarAviso(false);
-    document.getElementById('nome_loja').value = dadosLoja.nome_loja;
-    document.getElementById('id_itens').value = dadosLoja.id_itens;
+    
+    document.getElementById("nome_loja").value = dadosLoja.nome_loja;
+    
+    // Aguarda os itens carregarem antes de setar o valor
+    await carregarItens(); 
+    document.getElementById("id_itens").value = dadosLoja.id_itens;
 
-    const tipoSwitch = document.getElementById('storeTypeSwitch');
-    tipoSwitch.checked = tipoLojaAtual === 'compra';
+    // Desabilitar o switch
+    const tipoSwitch = document.getElementById("storeTypeSwitch");
+    tipoSwitch.checked = tipoLojaAtual === "compra";
     tipoSwitch.disabled = true;
 
     const switchLabel = document.querySelector('label[for="storeTypeSwitch"]');
     if (switchLabel) {
-      switchLabel.title = 'O tipo da loja (Compra/Venda) não pode ser alterado após a criação.';
-      switchLabel.style.cursor = 'not-allowed';
+      switchLabel.title = "O tipo da loja não pode ser alterado.";
+      switchLabel.style.cursor = "not-allowed";
     }
   } catch (error) {
     console.error("Erro ao carregar dados da loja:", error);
@@ -79,7 +89,7 @@ async function carregarDadosEdicao() {
 
 async function salvarEdicao() {
   const nome = document.getElementById("nome_loja").value.trim();
-  const id_itens = document.getElementById("id_itens").value.trim();
+  const id_itens = document.getElementById("id_itens").value;
 
   if (!nome || !id_itens) {
     alert("Preencha todos os campos!");
@@ -87,53 +97,30 @@ async function salvarEdicao() {
   }
 
   const fd = new FormData();
-  fd.append('nome_loja', nome);
-  fd.append('id_itens', id_itens);
-  // tipo necessário para escolher tabela no backend
-  fd.append('tipo', tipoLojaAtual);
+  fd.append("nome_loja", nome);
+  fd.append("id_itens", id_itens);
+  fd.append("tipo", tipoLojaAtual); // Necessário para o backend saber qual tabela
 
   try {
-    // Seguir padrão dos itens: enviar dados via POST e passar id via GET
-    const retorno = await fetch(`../../php/loja/loja_update.php?id=${idLojaAtual}`, {
-      method: 'POST',
-      body: fd
-    });
+    // Padrão: enviar dados via POST e id via GET
+    const retorno = await fetch(
+      `../../php/loja/loja_update.php?id=${idLojaAtual}`,
+      {
+        method: "POST",
+        body: fd,
+      }
+    );
 
     const resposta = await retorno.json();
-    if (resposta.status === 'ok') {
-      alert('SUCESSO: ' + resposta.mensagem);
-      window.location.href = 'lojas.html';
+    if (resposta.status === "ok") {
+      alert("SUCESSO: " + resposta.mensagem);
+      window.location.href = "lojas.html";
     } else {
-      alert('ERRO: ' + resposta.mensagem);
+      alert("ERRO: " + resposta.mensagem);
     }
   } catch (error) {
-    console.error('Erro ao salvar:', error);
-    alert('Ocorreu um erro de comunicação.');
-  }
-}
-
-async function excluirLoja() {
-  if (
-    !confirm(
-      "Tem certeza que deseja excluir esta loja? Esta ação não pode ser desfeita."
-    )
-  ) {
-    return;
-  }
-
-  try {
-    // Seguir padrão dos itens: exclusão por GET passando id (aqui também o tipo)
-    const retorno = await fetch(`../../php/loja/loja_excluir.php?id=${idLojaAtual}&tipo=${tipoLojaAtual}`);
-    const resposta = await retorno.json();
-    if (resposta.status === 'ok') {
-      alert('SUCESSO: ' + resposta.mensagem);
-      window.location.href = 'lojas.html';
-    } else {
-      alert('ERRO: ' + resposta.mensagem);
-    }
-  } catch (error) {
-    console.error('Erro ao excluir:', error);
-    alert('Ocorreu um erro de comunicação.');
+    console.error("Erro ao salvar:", error);
+    alert("Ocorreu um erro de comunicação.");
   }
 }
 
