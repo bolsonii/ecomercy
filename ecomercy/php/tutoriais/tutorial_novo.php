@@ -11,7 +11,7 @@
     $descricao = $_POST['descricao'];
     $categoria = $_POST['categoria'];
 
-    $stmt = $conexao->prepare("INSERT INTO tutorial(titulo, descricao, categoria_tutorial) VALUES(?,?,?)");
+    $stmt = $conexao->prepare("INSERT INTO tutorial(titulo, descricao, categoria) VALUES(?,?,?)");
     $stmt->bind_param("sss", $titulo, $descricao, $categoria);
     $stmt->execute();
     

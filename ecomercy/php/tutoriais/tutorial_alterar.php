@@ -12,7 +12,7 @@
         $descricao = $_POST['descricao'];
         $categoria = $_POST['categoria'];
     
-        $stmt = $conexao->prepare("UPDATE tutorial SET titulo = ?, descricao = ?, categoria_tutorial = ? WHERE id_tutorial = ?");
+        $stmt = $conexao->prepare("UPDATE tutorial SET titulo = ?, descricao = ?, categoria = ? WHERE id_tutorial = ?");
         $stmt->bind_param("sssi", $titulo, $descricao, $categoria, $_GET['id']);
         $stmt->execute();
 
