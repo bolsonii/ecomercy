@@ -1,6 +1,6 @@
 <?php // Vê se a inserção funcionou e passa os dados em array associativo para a variaável tabela, que será convertida em JSON e enviada ao frontend;
    // Busca dados no bamnco para o front exibi-los na tela; 
-   include_once('conexao.php');
+   include_once('../conexao.php');
     // Configurando o padrão de retorno em todas
     // as situações
     $retorno = [
@@ -11,11 +11,11 @@
 
     if(isset($_GET['id'])){ //Isset verifica se uma variável foi definida e se seu valor é != de null;
         // RECEBENDO O ID por GET
-        $stmt = $conexao->prepare("SELECT * FROM tutorial WHERE id = ?"); // Preparando a consulta; 
+        $stmt = $conexao->prepare("SELECT id_tutorial AS id, titulo, descricao, categoria_tutorial FROM tutorial WHERE id_tutorial = ?"); // Preparando a consulta; 
         $stmt->bind_param("i",$_GET['id']); // Associa o id = ? ao id recebido por get; 
     }else{
-        // Primeira situação - SEM RECEBER O ID por GET
-        $stmt = $conexao->prepare("SELECT * FROM tutorial");
+        // SEM RECEBER O ID por GET
+        $stmt = $conexao->prepare("SELECT id_tutorial AS id, titulo, descricao, categoria_tutorial FROM tutorial");
     }
     
     // Recuperando informações do banco de dados
@@ -46,5 +46,5 @@
 
     // Estou enviando para o FRONT o array RETORNO
     // mas no formato JSON
-    header("Content-type:application/json;charset:utf-8");
+    header("Content-type:application/json;charset=utf-8");
     echo json_encode($retorno); // Manda o retorno para o frontend

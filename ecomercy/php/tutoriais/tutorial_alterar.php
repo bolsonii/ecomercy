@@ -1,5 +1,5 @@
 <?php
-    include_once('conexao.php');
+    include_once('../conexao.php');
 
     $retorno = [
         'status'    => '',
@@ -8,13 +8,11 @@
     ];
 
     if(isset($_GET['id'])){
-        // Simulando as informações que vem do front
-        $titulo       = $_POST['titulo']; // $_POST['nome'];
-        $descricao      = $_POST['descricao'];
-        $categoria    = $_POST['categoria'];
+        $titulo    = $_POST['titulo'];
+        $descricao = $_POST['descricao'];
+        $categoria = $_POST['categoria'];
     
-        // Preparando para inserção no banco de dados
-        $stmt = $conexao->prepare("UPDATE tutorial SET titulo = ?, descricao = ?, categoria = ? WHERE id = ?");
+        $stmt = $conexao->prepare("UPDATE tutorial SET titulo = ?, descricao = ?, categoria_tutorial = ? WHERE id_tutorial = ?");
         $stmt->bind_param("sssi", $titulo, $descricao, $categoria, $_GET['id']);
         $stmt->execute();
 
@@ -27,7 +25,7 @@
         }else{
             $retorno = [
                 'status'    => 'nok',
-                'mensagem'  => 'Não posso alterar um registro.'.json_encode($_GET),
+                'mensagem'  => 'Não foi possível alterar o registro.',
                 'data'      => []
             ];
         }
@@ -42,5 +40,6 @@
        
     $conexao->close();
 
-    header("Content-type:application/json;charset:utf-8");
+    header("Content-type:application/json;charset=utf-8");
     echo json_encode($retorno);
+?>
