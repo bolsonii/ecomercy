@@ -14,7 +14,13 @@ if (!isset($_SESSION['id_pessoa'])) {
 $id_pessoa = $_SESSION['id_pessoa'];
 $lojas_usuario = [];
 
-$stmt = $conexao->prepare("SELECT * FROM Loja WHERE id_pessoa = ? ORDER BY tipo_loja");
+$stmt = $conexao->prepare("
+    SELECT l.*, i.nome as nome_item 
+    FROM Loja l 
+    LEFT JOIN Itens i ON l.id_itens = i.id 
+    WHERE l.id_pessoa = ? 
+    ORDER BY l.tipo_loja
+");
 $stmt->bind_param("i", $id_pessoa);
 $stmt->execute();
 $resultado = $stmt->get_result();
@@ -35,3 +41,4 @@ $retorno = [
 $conexao->close();
 header("Content-type:application/json;charset:utf-8");
 echo json_encode($retorno);
+

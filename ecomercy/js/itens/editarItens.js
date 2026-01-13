@@ -22,7 +22,7 @@ async function buscar(id){
         document.getElementById("id").value = id;
     }else{
         alert("ERRO:" + resposta.mensagem);
-        window.location.href = "/pages/itens/gerenciarItens.html";
+        window.location.href = "/pages/itens/gerenciarItens.php";
     }
 }
 
@@ -49,7 +49,7 @@ async function alterar(){
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         alert("SUCESSO: " + resposta.mensagem);
-        window.location.href = '../itens/gerenciarItens.html'
+        window.location.href = '../itens/gerenciarItens.php'
     }else{
         alert("ERRO: " + resposta.mensagem);
     }

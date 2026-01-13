@@ -24,10 +24,10 @@ async function carregarItens() {
   const selectItens = document.getElementById("id_itens");
   selectItens.innerHTML = '<option value="">Carregando...</option>';
   try {
-    const response = await fetch("../../php/itens_listar.php"); 
+    const response = await fetch("../../php/itens_listar.php");
     const resposta = await response.json();
 
-    if (resposta.status === "ok" && resposta.data.length > 0) {
+    if (resposta.status === "ok" && resposta.data && resposta.data.length > 0) {
       selectItens.innerHTML = '<option value="" disabled selected>Selecione um item</option>';
       resposta.data.forEach((item) => {
         const option = document.createElement("option");
@@ -39,7 +39,6 @@ async function carregarItens() {
       selectItens.innerHTML = '<option value="" disabled>Nenhum item cadastrado</option>';
     }
   } catch (error) {
-    console.error("Erro ao carregar itens:", error);
     selectItens.innerHTML = '<option value="" disabled>Erro ao carregar itens</option>';
   }
 }
@@ -61,7 +60,7 @@ async function salvarDadosLoja(nome, id_itens, tipo_loja) {
 
     if (resposta.status === "ok") {
       alert("SUCESSO: A loja foi criada com sucesso!");
-      window.location.href = "lojas.html";
+      window.location.href = "lojas.php";
     } else {
       alert("ERRO: " + resposta.mensagem);
     }

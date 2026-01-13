@@ -1,10 +1,8 @@
-<?php   
+<?php
     include_once('../conexao.php');
-    
     $retorno = [
-        'status'   => '',
-        'mensagem' => '',
-        'data'     => []
+        'status' => '', 
+        'mensagem' => ''
     ];
 
     if(isset($_GET['id'])){
@@ -14,23 +12,20 @@
 
         if($stmt->affected_rows > 0){
             $retorno = [
-                'status'   => 'ok',
-                'mensagem' => 'Registro excluído',
-                'data'     => []
+                'status' => 'ok', 
+                'mensagem' => 'Registro excluído com sucesso.'
             ];
-        }else{
+        } else {
             $retorno = [
-                'status'   => 'nok',
-                'mensagem' => 'Registro não foi excluído',
-                'data'     => []
+                'status' => 'nok', 
+                'mensagem' => 'Registro não excluído (ID não encontrado).'
             ];
         }
         $stmt->close();
-    }else{
+    } else {
         $retorno = [
-            'status'   => 'nok',
-            'mensagem' => 'É necessário informar um ID para exclusão',
-            'data'     => []
+            'status' => 'nok', 
+            'mensagem' => 'É necessário informar um ID para exclusão.'
         ];
     }
     $conexao->close();

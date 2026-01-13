@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById("novo").addEventListener("click", () => {
-    window.location.href = 'novoItem.html';
+    window.location.href = 'novoItem.php';
 });
 
 async function buscar(){
@@ -15,14 +15,23 @@ async function buscar(){
 }
 
 async function excluir(id){
-    const retorno = await fetch("../../php/itens/itens_excluir.php?id="+id);
-    const resposta = await retorno.json();
-    if(resposta.status == "ok"){
-        alert(resposta.mensagem);
-        window.location.reload();    
-    }else{
-        alert(resposta.mensagem);
+    if(!confirm("Tem certeza que deseja excluir este item?")){
+        return false;
     }
+    try {
+        const retorno = await fetch("../../php/itens/itens_excluir.php?id="+id);
+        const resposta = await retorno.json();
+        
+        if(resposta.status == "ok"){
+            alert(resposta.mensagem);
+            window.location.reload();    
+        }else{
+            alert(resposta.mensagem);
+        }
+    } catch(error) {
+        alert("Erro ao excluir item");
+    }
+    return false;
 }
 
 function preencherTabela(tabela){
@@ -47,10 +56,10 @@ function preencherTabela(tabela){
                 <td>${tabela[i].nome}</td>
                 <td>${precoFormatado}</td>
                 <td class="text-end">
-                    <a href='editarItem.html?id=${tabela[i].id}' class="btn btn-warning btn-sm me-2">
+                    <a href='editarItem.php?id=${tabela[i].id}' class="btn btn-warning btn-sm me-2">
                         <i class="bi bi-pencil-square"></i> Alterar
                     </a>
-                    <a href='#' onclick='excluir(${tabela[i].id})' class="btn btn-danger btn-sm">
+                    <a href='#' onclick='excluir(${tabela[i].id}); return false;' class="btn btn-danger btn-sm">
                         <i class="bi bi-trash"></i> Excluir
                     </a>
                 </td>

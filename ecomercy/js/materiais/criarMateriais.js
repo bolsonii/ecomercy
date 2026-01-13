@@ -22,7 +22,7 @@ async function salvarNoBanco() {
 
     if (resposta.status == "ok") {
         alert(resposta.mensagem);
-        window.location.href = './material.html';
+        window.location.href = './material.php';
     } else {
         alert("ERRO: " + resposta.mensagem);
     }

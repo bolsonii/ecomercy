@@ -20,7 +20,7 @@ async function buscar(id){
         }
     }else{
         alert("ERRO:" + resposta.mensagem);
-        window.location.href = "tutoriais.html";
+        window.location.href = "tutoriais.php";
     }  
 };
 
@@ -58,7 +58,7 @@ async function alterar(){
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         alert("SUCESSO: " + resposta.mensagem);
-        window.location.href = 'tutoriais.html'
+        window.location.href = 'tutoriais.php'
     }else{
         alert("ERRO: " + resposta.mensagem);
     }

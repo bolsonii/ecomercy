@@ -1,45 +1,51 @@
 <?php
+    header("Content-type:application/json;charset:utf-8");
     include_once('../conexao.php');
-
-    //Configurando o padrão de retorno em todas as situações
     $retorno = [
-        'status'   => '', //ok - nok
-        'mensagem' => '', //mensagem que envia para o front
-        'data'     => []
+        'status' => '', 
+        'mensagem' => ''
     ];
 
     if(isset($_GET['id'])){
-        //Segunda situação - RECEBENDO O ID POR GET
-        $stmt = $conexao->prepare("DELETE FROM Itens WHERE id = ?");
-        $stmt->bind_param("i",$_GET['id']);
-        $stmt->execute();
+        $id = $_GET['id'];
+        
+        try {
+            
+            $stmt1 = $conexao->prepare("DELETE FROM Loja WHERE id_itens = ?");
+            $stmt1->bind_param("i", $id);
+            $stmt1->execute();
+            $stmt1->close();
+            
+            
+            $stmt = $conexao->prepare("DELETE FROM Itens WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
 
-        if($stmt->affected_rows > 0){
+            if($stmt->affected_rows > 0){
+                $retorno = [
+                    'status' => 'ok', 
+                    'mensagem' => 'Registro excluído com sucesso.'
+                ];
+            } else {
+                $retorno = [
+                    'status' => 'nok', 
+                    'mensagem' => 'Registro não excluído (ID não encontrado).'
+                ];
+            }
+            $stmt->close();
+        } catch(Exception $e) {
             $retorno = [
-                'status'   => 'ok', //ok - nok
-                'mensagem' => 'Registro excluido', //mensagem que envia para o front
-                'data'     => []
-            ];
-        }else{
-            $retorno = [
-                'status'   => 'nok', //ok - nok
-                'mensagem' => 'Registro não excluido', //mensagem que envia para o front
-                'data'     => []
+                'status' => 'nok', 
+                'mensagem' => 'Erro ao excluir: ' . $e->getMessage()
             ];
         }
-
-        $stmt->close();
-    }else{
-
-        //Configurando o padrão de retorno em todas as situações
+    } else {
         $retorno = [
-            'status'   => 'nok', //ok - nok
-            'mensagem' => 'É necessário informar um id para exclusão', //mensagem que envia para o front
-            'data'     => []
+            'status' => 'nok', 
+            'mensagem' => 'É necessário informar um ID para exclusão.'
         ];
     }
     $conexao->close();
 
-    header("Content-type:application/json;charset:utf-8");
     echo json_encode($retorno);
 ?>

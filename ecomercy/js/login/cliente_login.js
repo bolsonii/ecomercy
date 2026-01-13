@@ -8,14 +8,14 @@ async function login(){
     fd.append('usuario', usuario);
     fd.append('senha',senha);
 
-    const retorno = await fetch('../../php/cliente/cliente_login.php',{
+    const retorno = await fetch('../php/cliente/cliente_login.php',{
             method: 'POST',
             body: fd
         }
     );
     const resposta = await retorno.json();
     if(resposta.status == 'ok'){
-        window.location.href = '../home/home.php';
+        window.location.href = '../pages/home/home.php';
     }else{
         alert('Credenciais inválidas.');
     }

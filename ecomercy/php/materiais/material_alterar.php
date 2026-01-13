@@ -12,7 +12,6 @@
         $id = $_GET['id'];
 
         $stmt = $conexao->prepare("UPDATE materiais SET nome = ?, preco = ?, categoria_produtos = ? WHERE id_materiais = ?");
-
         $stmt->bind_param("sdsi", $nome, $preco, $categoria, $id);
         $stmt->execute();
 

@@ -18,7 +18,7 @@ function criarCardHTML(loja, isUsuario = false) {
 
   const botoesHTML = isUsuario
     ? `
-        <a href="editarLoja.html?id=${loja.id_loja}" class="edit-store-btn" title="Editar Loja">
+        <a href="editarLoja.php?id=${loja.id_loja}" class="edit-store-btn" title="Editar Loja">
             <i class="fa-solid fa-pen-to-square"></i>
         </a>
         <a href="#" onclick="excluirLoja(${loja.id_loja})" class="delete-store-btn" title="Excluir Loja">
@@ -28,7 +28,7 @@ function criarCardHTML(loja, isUsuario = false) {
     : "";
 
   const itemInfoHTML = (loja.id_itens && loja.id_itens > 0)
-    ? `<p><i class="fas fa-box"></i> Item principal (ID): ${loja.id_itens}</p>`
+    ? `<p><i class="fas fa-box"></i> Item principal: ${loja.nome_item || "Sem nome"}</p>`
     : `<p><i class="fas fa-box"></i> Sem item principal definido</p>`;
 
   return `
@@ -100,7 +100,7 @@ async function carregarMinhasLojas() {
       containerUsuario.innerHTML = `
                 <div class="no-store-message">
                     <h4>Você ainda não criou nenhuma loja.</h4>
-                    <p>É rápido e fácil. <a href="criarLoja.html">Comece agora mesmo!</a></p> 
+                    <p>É rápido e fácil. <a href="criarLoja.php">Comece agora mesmo!</a></p> 
                 </div>
             `;
     }

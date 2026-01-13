@@ -20,7 +20,7 @@ async function buscarDadosDaColeta(id) {
         document.getElementById('novoLoja').value = coleta.loja;
     } else {
         alert("ERRO: " + resposta.mensagem);
-        window.location.href = "../../pages/ponto-coleta/coleta.html";
+        window.location.href = "../../pages/ponto-coleta/coleta.php";
     }
 }
 
@@ -47,7 +47,7 @@ async function salvarAlteracao() {
 
     if (resposta.status == "ok") {
         alert(resposta.mensagem);
-        window.location.href = "../../pages/ponto-coleta/coleta.html";
+        window.location.href = "../../pages/ponto-coleta/coleta.php";
     } else {
         alert("ERRO: " + resposta.mensagem);
     }

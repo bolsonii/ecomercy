@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!idMaterial) {
         alert("ID do material não encontrado!");
-        window.location.href = './material.html';
+        window.location.href = './material.php';
         return;
     }
 
@@ -31,7 +31,7 @@ async function carregarDadosDoMaterial() {
         document.getElementById('novoCategoria').value = material.categoria_produtos;
     } else {
         alert("Erro ao carregar os dados do material: " + resposta.mensagem);
-        window.location.href = './material.html';
+        window.location.href = './material.php';
     }
 }
 
@@ -57,7 +57,7 @@ async function salvarAlteracoes() {
 
     if (resposta.status == "ok") {
         alert(resposta.mensagem);
-        window.location.href = './material.html';
+        window.location.href = './material.php';
     } else {
         alert("ERRO: " + resposta.mensagem);
     }

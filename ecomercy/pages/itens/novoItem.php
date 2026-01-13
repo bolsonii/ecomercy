@@ -1,74 +1,18 @@
+<?php include('../../php/navbar.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Itens</title>
+    <title>Novo Item</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../../GlobalStyles/NavBar.css">
+
 </head>
-<body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg bg-verde">
-        <div class="container-fluid">
-        <a class="navbar-brand" href="../home/home.html">Ecomercy</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-            <li>
-                <a class="nav-link me-4" href="../sobre/sobre.html">Sobre</a>
-            </li>
-            <li >
-                <a class="nav-link me-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tutoriais</a>
-            </li>
-            <li>
-                <a class="nav-link me-4" href="../lojas/lojas.html" aria-disabled="true">Lojas</a>
-            </li>
-            <li>
-                <a class="nav-link" href="../ponto-coleta/coleta.html" aria-disabled="true">Pontos de coleta</a>
-            </li>
-            </ul>
-
-            <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-                <a class=" item dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gerenciar</a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                    <a class="dropdown-item" href="../itens/gerenciarItens.html">Itens</a>
-                    </li>
-                    <li>
-                    <a class="dropdown-item" href="#">Cadastro</a>
-                    </li>
-                    <li>
-                    <a class="dropdown-item" href="#">Cadastro</a>
-                    </li>
-                    <li>
-                    <a class="dropdown-item" href="#">Cadastro</a>
-                    </li>
-                    <li>
-                    <a class="dropdown-item" href="#">Cadastro</a>
-                    </li>
-                </ul>
-            </li>
-            </ul>
-
-            <form class="d-flex ms-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-                
-        </div>
-        </div>
-    </nav>
+<body>
     
     <div class="container mt-5 pt-3 flex-grow-1">
-        <h1>Editar Item</h1>
-        <div class="mb-3">
-            <label for="id" class="form-label">ID</label>
-            <input type="text" class="form-control" id="id" name="id" readonly style="background-color: #e9ecef;">
-        </div>
-        
+        <h1>Novo Item</h1>
         
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
@@ -82,14 +26,14 @@
         
         <div>
             <button type="button" class="btn btn-success" id="enviar">
-                <i class="bi bi-check-circle"></i> Salvar Alterações
+                <i class="bi bi-check-circle"></i> Salvar
             </button>
-            <a href="gerenciarItens.html" class="btn btn-secondary">
+            <a href="gerenciarItens.php" class="btn btn-secondary">
                 <i class="bi bi-x-circle"></i> Cancelar
             </a>
         </div>
     </div>
-    
+
     <footer class="bg-dark text-light mt-5 pt-4 pb-3">
         <div class="container-fluid">
         <div class="row">
@@ -128,13 +72,15 @@
         <hr class="border-secondary" />
 
             <p class="text-center text-secondary mb-0">
-            &copy; 2025 <span class="text-success">Ecomercy</span> – Todos os direitos reservados.
+            &copy; 2025 <span class="text-success">Ecomercy</span> — Todos os direitos reservados.
             </p>
         </div>
     </footer>
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="../../js/itens/editarItens.js"></script>
+    <script src="../../js/itens/criarItens.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+

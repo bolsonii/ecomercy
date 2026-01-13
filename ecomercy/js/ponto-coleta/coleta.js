@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.getElementById('criarColeta').addEventListener('click', () => {
-    window.location.href = 'criarColeta.html';
+    window.location.href = 'criarColeta.php';
 });
 
 async function carregarPontosDoBanco() {
@@ -27,7 +27,7 @@ async function carregarPontosDoBanco() {
                     <h4 class="card-title">${lista[i].loja}</h4>
                     <p class="card-text"><strong>Endereço:</strong> ${lista[i].endereco}</p>
                     <p class="card-text"><strong>Horário:</strong> ${lista[i].hora}</p>
-                    <a href="../../pages/ponto-coleta/editarColeta.html?id=${lista[i].id}" class="btn btn-primary">Editar</a>
+                    <a href="../../pages/ponto-coleta/editarColeta.php?id=${lista[i].id}" class="btn btn-primary">Editar</a>
                 </div>
             <img class="card-img-bottom" src="../../assets/coleta/praca.jpg" alt="Imagem do ponto de coleta">
             </div>

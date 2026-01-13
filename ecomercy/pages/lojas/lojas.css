@@ -100,7 +100,7 @@ body {
 
 .user-loja-card:hover {
     transform: translateY(-5px); 
-    box-shadow: 0 0 35px rgba(168, 255, 120, 0.4); /* Aumenta o brilho do card */
+    box-shadow: 0 0 35px rgba(168, 255, 120, 0.4); 
 }
 
 .no-store-message {

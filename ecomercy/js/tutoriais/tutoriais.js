@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById("novo").addEventListener("click", () => {
-    window.location.href = 'tutorial_novo.html';
+    window.location.href = 'tutorial_novo.php';
 });
 
 async function buscar(){
@@ -47,7 +47,7 @@ function preencherTabela(tabela){
                 <td>${tabela[i].categoria_tutorial || tabela[i].categoria}</td>
                 <td>
                     <div class="d-flex justify-content-end gap-2">
-                        <a href='tutorial_editar.html?id=${tabela[i].id}' class="btn btn-warning btn-sm">
+                        <a href='tutorial_editar.php?id=${tabela[i].id}' class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-square"></i> Alterar
                         </a>
                         <a href='#' onclick='excluir(${tabela[i].id})' class="btn btn-danger btn-sm">
@@ -63,3 +63,4 @@ function preencherTabela(tabela){
         </table>`;
     document.getElementById("lista").innerHTML = html;
 }
+

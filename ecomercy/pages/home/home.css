@@ -20,8 +20,11 @@
 
     /* Estilos para o Carrossel de Parceiros */
     .parceiros-section {
-        padding: 60px 0;
-        background-color: #f8f9fa; /* Um cinza bem claro para destacar a seção */
+        padding: 80px 0;
+        background-color: #f8f9fa;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        border-radius: 10px;
     }
 
     .parceiros-section h2 {
@@ -29,11 +32,12 @@
         margin-bottom: 40px;
         font-weight: bold;
         color: rgb(24, 41, 24);
+        font-size: 2.5rem;
+        letter-spacing: 1px;
     }
 
     .carousel-parceiros .carousel-item {
-        /* Mostra vários logos de uma vez. O truque é colocar vários itens dentro de um .carousel-item */
-        transition: transform 2s ease-in-out; /* Transição mais lenta e suave */
+        transition: transform 2s ease-in-out;
     }
 
     .logo-parceiro {
@@ -55,21 +59,73 @@
         transform: scale(1.2);
     }
 
-    /* Deixa as setas do carrossel mais escuras e visíveis */
     .carousel-parceiros .carousel-control-prev-icon,
     .carousel-parceiros .carousel-control-next-icon {
-        background-image: none; /* Remove a imagem padrão do Bootstrap */
-        color: #333; /* Cor do ícone */
-        font-size: 2.5rem; /* Tamanho do ícone */
+        background-image: none;
+        color: #333;
+        font-size: 2.5rem;
         width: auto;
         height: auto;
+    }
+
+    /* Seção Sobre Nós */
+    .sobre-nos {
+        padding: 80px 0;
+        background-color: white;
+        margin: 30px 0;
+        border-top: 3px solid rgb(15, 88, 0);
+        border-bottom: 3px solid rgb(15, 88, 0);
     }
 
     .sobre-nos .container h2 {
         color: rgb(24, 41, 24);
         font-weight: bold;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        letter-spacing: 1px;
+    }
+
+    .sobre-nos .container p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    .sobre-nos .col-md-6 {
+        display: flex;
+        align-items: center;
+    }
+
+    .sobre-nos img {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .sobre-nos img:hover {
+        transform: scale(1.05);
     }
 
     #footer-home {
         background-color: rgb(24, 41, 24);
+        padding: 50px 0 20px;
+        margin-top: 30px;
+    }
+
+    #footer-home h5 {
+        margin-bottom: 20px;
+    }
+
+    #footer-home h6 {
+        margin-bottom: 15px;
+    }
+
+    #footer-home p {
+        line-height: 1.7;
+        margin-bottom: 10px;
+    }
+
+    #footer-home .list-unstyled li {
+        margin-bottom: 8px;
     }

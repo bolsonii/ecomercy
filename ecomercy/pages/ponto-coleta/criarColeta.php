@@ -1,3 +1,7 @@
+<?php 
+$navbar_logout_link = '../home/logout.php';
+include('../../php/navbar.php'); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../../GlobalStyles/NavBar.css">
-    <link rel="stylesheet" href="coleta.css" />
-    <!-- Reaproveita variáveis e estilos da página 'lojas' sem alterar o arquivo original -->
+    <link rel="stylesheet" href="coleta.css" />>
     <link rel="stylesheet" href="../lojas/lojas.css" />
     <style>
-        /* Hover reduzido apenas para o card desta página (não altera lojas.css) */
         .coleta-card.user-loja-card {
             transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
@@ -21,65 +23,13 @@
             transform: scale(1.04);
             box-shadow: 0 7px 22px rgba(0, 0, 0, 0.42);
         }
-        /* Ajustes locais para garantir boa leitura no card */
+        
         .coleta-card .form-label { color: var(--cor-brilho); }
         .coleta-card .form-control { background-color: rgba(255,255,255,0.03); color: var(--cor-brilho); border-color: var(--border-color); }
         .coleta-card .form-control:focus { box-shadow: 0 0 0 0.15rem rgba(168,255,120,0.12); }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-verde">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../home/home.html">Ecomercy</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                    <li>
-                        <a class="nav-link me-4" href="../sobre/sobre.html">Sobre</a>
-                    </li>
-                    <li >
-                        <a class="nav-link me-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tutoriais</a>
-                    </li>
-                    <li>
-                        <a class="nav-link me-4" href="../lojas/lojas.html" aria-disabled="true">Lojas</a>
-                    </li>
-                    <li>
-                        <a class="nav-link active" aria-disabled="true">Pontos de coleta</a>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class=" item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gerenciar</a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a class="dropdown-item" href="../itens/gerenciarItens.html">Itens</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="criarLoja.html">Crie sua Loja</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Cadastro</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Cadastro</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Cadastro</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <form class="d-flex ms-3" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
     <main>
         <div class="container py-5">
             <div class="row">
@@ -176,5 +126,9 @@
         </div>
     </footer>
     <script src="../../js/ponto-coleta/criarColeta.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+

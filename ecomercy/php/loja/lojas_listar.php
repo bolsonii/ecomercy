@@ -8,13 +8,15 @@ $retorno = ['status' => 'ok', 'mensagem' => 'Lojas listadas', 'data' => []];
 $id_pessoa_logada = $_SESSION['id_pessoa'] ?? 0;
 
 $sql = "(
-    SELECT id_loja_compra as id_loja, nome_loja, id_pessoa, id_itens, 'Compra' as tipo 
-    FROM Loja_compra 
-    WHERE id_pessoa != ?
+    SELECT lc.id_loja_compra as id_loja, lc.nome_loja, lc.id_pessoa, lc.id_itens, i.nome as nome_item, 'Compra' as tipo 
+    FROM Loja_compra lc
+    LEFT JOIN Itens i ON lc.id_itens = i.id
+    WHERE lc.id_pessoa != ?
 ) UNION ALL (
-    SELECT id_loja_venda as id_loja, nome_loja, id_pessoa, id_itens, 'Venda' as tipo 
-    FROM Loja_vendas 
-    WHERE id_pessoa != ?
+    SELECT lv.id_loja_venda as id_loja, lv.nome_loja, lv.id_pessoa, lv.id_itens, i.nome as nome_item, 'Venda' as tipo 
+    FROM Loja_vendas lv
+    LEFT JOIN Itens i ON lv.id_itens = i.id
+    WHERE lv.id_pessoa != ?
 )";
 
 $stmt = $conexao->prepare($sql);

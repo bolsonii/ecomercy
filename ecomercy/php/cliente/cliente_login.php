@@ -1,43 +1,51 @@
 <?php
-include_once('../conexao.php');
-session_start(); 
+    include_once('../conexao.php');
+    session_start(); 
 
-$retorno = [
-    'status'   => 'nok',
-    'mensagem' => 'Usuário ou senha inválidos.',
-    'data'     => []
-];
+    $retorno = [
+        'status' => '', 
+        'mensagem' => ''
+    ];
 
-$usuario_form = $_POST['usuario'];
-$senha_form = $_POST['senha'];
+    if(!isset($_POST['usuario']) || !isset($_POST['senha'])){
+        $retorno = [
+            'status' => 'nok', 
+            'mensagem' => 'Usuário e senha são obrigatórios.'
+        ];
+        header("Content-type:application/json;charset:utf-8");
+        echo json_encode($retorno);
+        exit;
+    }
 
-$stmt = $conexao->prepare("SELECT * FROM cliente WHERE usuario = ?");
-$stmt->bind_param("s", $usuario_form);
-$stmt->execute();
-$resultado = $stmt->get_result();
+    $usuario_form = $_POST['usuario'];
+    $senha_form = $_POST['senha'];
 
-if ($resultado->num_rows > 0) {
-   $usuario_db = $resultado->fetch_assoc();
+    $stmt = $conexao->prepare("SELECT id_pessoa, usuario, nome FROM Usuarios WHERE usuario = ? AND senha = ?");
+    $stmt->bind_param("ss", $usuario_form, $senha_form);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
 
-        if ($senha_form === $usuario_db['senha']) {
-        
-        $_SESSION['id_cliente'] = $usuario_db['id'];
+    if($resultado->num_rows > 0){
+        $usuario_db = $resultado->fetch_assoc();
+
+        $_SESSION['id_pessoa'] = $usuario_db['id_pessoa'];
         $_SESSION['usuario'] = $usuario_db['usuario'];
+        $_SESSION['nome'] = $usuario_db['nome'];
 
         $retorno = [
-            'status'   => 'ok',
-            'mensagem' => 'Login efetuado com sucesso.',
-            'data'     => [
-                'id' => $usuario_db['id'],
-                'usuario' => $usuario_db['usuario']
-            ]
+            'status' => 'ok', 
+            'mensagem' => 'Login efetuado com sucesso.'
+        ];
+    } else {
+        $retorno = [
+            'status' => 'nok', 
+            'mensagem' => 'Usuário ou senha inválidos.'
         ];
     }
-}
 
-$stmt->close();
-$conexao->close();
+    $stmt->close();
+    $conexao->close();
 
-header("Content-type:application/json;charset:utf-8");
-echo json_encode($retorno);
+    header("Content-type:application/json;charset:utf-8");
+    echo json_encode($retorno);
 ?>

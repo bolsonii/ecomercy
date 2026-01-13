@@ -1,3 +1,4 @@
+<?php include('../../php/navbar.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,59 +15,6 @@
     <link rel="stylesheet" href="coleta.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-verde">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="../home/home.html">Ecomercy</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-          <li>
-            <a class="nav-link me-4" href="../sobre/sobre.html">Sobre</a>
-          </li>
-          <li >
-            <a class="nav-link me-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tutoriais</a>
-          </li>
-          <li>
-            <a class="nav-link me-4" href="../lojas/lojas.html" aria-disabled="true">Lojas</a>
-          </li>
-          <li>
-            <a class="nav-link active" href="../ponto-coleta/coleta.html" aria-disabled="true">Pontos de coleta</a>
-          </li>
-        </ul>
-
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class=" item dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gerenciar</a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="../itens/gerenciarItens.html">Itens</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="../materiais/material.html">Materiais</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="../ponto-coleta/coleta.html">Ponto de Coleta</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="../tutoriais/tutoriais.html">Tutoriais</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="../lojas/lojas.html">Loja</a>
-                </li>
-              </ul>
-          </li>
-        </ul>
-
-        <form class="d-flex ms-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-            
-      </div>
-    </div>
-  </nav>
     <main>
         <div class="text-center">
             <p class="paragrafo-top">Crie um ponto de coleta!</p>
@@ -141,3 +89,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+

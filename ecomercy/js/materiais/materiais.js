@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.getElementById('criarMaterial').addEventListener('click', () => {
-    window.location.href = 'criarMaterial.html';
+    window.location.href = 'criarMaterial.php';
 });
 
 async function carregarMateriaisDoBanco() {
@@ -29,7 +29,7 @@ async function carregarMateriaisDoBanco() {
                     <h4 class="card-title">${lista[i].nome}</h4>
                     <p class="card-text"><strong>Preço:</strong> ${precoFormatado}</p>
                     <p class="card-text"><strong>Categoria:</strong> ${lista[i].categoria_produtos}</p>
-                    <a href="../../pages/materiais/editarMaterial.html?id=${lista[i].id_materiais}" class="btn btn-primary">Editar</a>
+                    <a href="../../pages/materiais/editarMaterial.php?id=${lista[i].id_materiais}" class="btn btn-primary">Editar</a>
                 </div>
             </div>
         </div>`;

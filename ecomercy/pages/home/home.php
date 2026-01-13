@@ -1,3 +1,4 @@
+<?php include('../../php/navbar.php'); ?>
 <?php
   include_once('../../php/valida_sessao.php');
 ?>
@@ -18,96 +19,15 @@
     <link rel="stylesheet" href="home.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-verde">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="../home/home.html">Ecomercy</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarScroll"
-          aria-controls="navbarScroll"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarScroll">
-          <ul
-            class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-            style="--bs-scroll-height: 100px"
-          >
-            <li>
-              <a class="nav-link me-4" href="../sobre/sobre.html">Sobre</a>
-            </li>
-            <li>
-              <a
-                class="nav-link me-4"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                >Tutoriais</a
-              >
-            </li>
-            <li>
-              <a
-                class="nav-link me-4"
-                href="../lojas/lojas.html"
-                aria-disabled="true"
-                >Lojas</a
-              >
-            </li>
-            <li>
-              <a 
-              class="nav-link" 
-              href="../ponto-coleta/coleta.html"
-              aria-disabled="true">Pontos de coleta</a>
-            </li>
-          </ul>
-
-          <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class=" item dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gerenciar</a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="../itens/gerenciarItens.html">Itens</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="../materiais/material.html">Materiais</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="../ponto-coleta/coleta.html">Ponto de Coleta</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="../tutoriais/tutoriais.html">Tutoriais</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="../lojas/lojas.html">Loja</a>
-                </li>
-              </ul>
-          </li>
-        </ul>
-
-          <form class="d-flex ms-3" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    <?php 
+      $navbar_home_link = '#inicio';
+      $navbar_logout_link = 'logout.php';
+      include('../../php/navbar.php');
+    ?>
     <br /><br />
 
     <!-- Carrossel empresas parceiras -->
-
-    <section class="parceiros-section">
+    <section id="inicio" class="parceiros-section">
       <div class="container">
         <h2>Empresas Parceiras</h2>
         <div
@@ -120,31 +40,30 @@
               <div class="d-flex justify-content-around">
                 <div class="logo-parceiro">
                   <img
-                    src="../../assets/empresas/correios.jpeg"
-                    alt="Logo Empresa A"
-                  />
+                    src="../../assets/empresas/correio.webp"
+                    alt="Logo Correios"/>
                 </div>
                 <div class="logo-parceiro">
                   <img
-                    src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+B"
+                    src="../../assets/empresas/adidas.png"
                     alt="Logo Empresa B"
                   />
                 </div>
                 <div class="logo-parceiro">
                   <img
-                    src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+C"
+                    src="../../assets/empresas/apple.webp"
                     alt="Logo Empresa C"
                   />
                 </div>
                 <div class="logo-parceiro">
                   <img
-                    src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+D"
+                    src="../../assets/empresas/havaianas.png"
                     alt="Logo Empresa D"
                   />
                 </div>
                 <div class="logo-parceiro">
                   <img
-                    src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+E"
+                    src="../../assets/empresas/kfc.webp"
                     alt="Logo Empresa E"
                   />
                 </div>
@@ -155,31 +74,31 @@
               <div class="d-flex justify-content-around">
                 <div class="logo-parceiro">
                   <img
-                    src="../../assets/empresas/correios.jpeg"
+                    src="../../assets/empresas/lacoste.png"
                     alt="Logo Empresa F"
                   />
                 </div>
                 <div class="logo-parceiro">
                   <img
-                    src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+G"
+                    src="../../assets/empresas/pepsi.png"
                     alt="Logo Empresa G"
                   />
                 </div>
                 <div class="logo-parceiro">
                   <img
-                    src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+H"
+                    src="../../assets/empresas/Starbucks-Logo.png"
                     alt="Logo Empresa H"
                   />
                 </div>
                 <div class="logo-parceiro">
                   <img
-                    src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+I"
+                    src="../../assets/empresas/Vilebrequin-logo.png"
                     alt="Logo Empresa I"
                   />
                 </div>
                 <div class="logo-parceiro">
                   <img
-                    src="https://via.placeholder.com/150x70/CCCCCC/FFFFFF?text=Empresa+J"
+                    src="../../assets/empresas/lv-logo.png"
                     alt="Logo Empresa J"
                   />
                 </div>
@@ -210,8 +129,7 @@
     </section>
 
     <!-- Começo Sobre nós -->
-    <br /><br />
-    <section class="sobre-nos" class="my-5">
+    <section id="sobre" class="sobre-nos">
       <div class="container">
         <h2 class="text-center mb-4">Sobre Nós</h2>
         <div class="row align-items-center">
@@ -221,9 +139,7 @@
               pessoas interessadas na compra e venda de lixo eletrônico,
               promovendo sustentabilidade e reaproveitamento tecnológico.
               Fundada por cinco empreendedores apaixonados por inovação e meio
-              ambiente.
-            </p>
-            <p>
+              ambiente. <br><br>
               Nossa missão é facilitar o processo de troca de equipamentos
               eletrônicos usados, garantindo que esses itens sejam reutilizados
               ou reciclados de maneira adequada, reduzindo o impacto ambiental.
@@ -241,11 +157,7 @@
     </section>
 
     <!-- Footer: -->
-    <br /><br />
-    <footer
-      class="text-light mt-5 pt-4 pb-3 position-absolute top-100"
-      id="footer-home"
-    >
+    <footer class="text-light mt-5 pt-4 pb-3" id="footer-home">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6 mb-3">
@@ -322,3 +234,7 @@
     ></script>
   </body>
 </html>
+
+
+
+

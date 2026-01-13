@@ -1,0 +1,96 @@
+﻿<?php include('../../php/navbar.php'); ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="editarLojas.css" />
+    <link rel="stylesheet" href="../../GlobalStyles/NavBar.css" />
+  </head>
+  <body>
+    <!-- Edição das lojas aqui -->
+
+    <div class="form-container">
+      <div id="form-wrapper">
+        <h2 class="mb-4">Editar sua Loja</h2>
+        <form action="#" method="POST" novalidate>
+          <div
+            class="d-flex justify-content-center align-items-center gap-3 mb-4"
+          >
+            <span>Venda</span>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="storeTypeSwitch"
+                style="width: 4em; height: 2em; cursor: pointer"
+              />
+            </div>
+            <span>Compra</span>
+          </div>
+
+          <div class="mb-3">
+            <label for="nome_loja" class="form-label">Nome da Loja</label>
+            <input type="text" class="form-control" id="nome_loja" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="id_itens" class="form-label">Item Principal</label>
+            <select class="form-select" id="id_itens" required>
+              <option value="" disabled>Carregando itens...</option>
+            </select>
+          </div>
+
+          <div class="d-grid gap-2 mt-4">
+            <button
+              type="button"
+              class="btn btn-lg btn-salvar"
+              id="salvar_alteracoes"
+            >
+              Salvar Alterações
+            </button>
+            <button
+              type="button"
+              class="btn btn-lg btn-excluir"
+              id="excluir_loja"
+            >
+              Excluir Loja
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="sem-loja-aviso" class="d-none">
+        <h3>Nenhuma loja encontrada!</h3>
+        <p>Você precisa criar uma loja antes de poder editá-la.</p>
+        <a href="criarLoja.php">Criar minha loja agora</a>
+      </div>
+    </div>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../../js/lojas/editarLoja.js"></script>
+  </body>
+</html>
+
+
+
+

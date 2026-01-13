@@ -93,7 +93,7 @@ async function salvarEdicao() {
     const resposta = await retorno.json();
     if (resposta.status === 'ok') {
       alert('SUCESSO: ' + resposta.mensagem);
-      window.location.href = 'lojas.html';
+      window.location.href = 'lojas.php';
     } else {
       alert('ERRO: ' + resposta.mensagem);
     }
@@ -121,7 +121,7 @@ async function excluirLoja() {
     
     if (resposta.status === "ok") {
       alert("SUCESSO: " + resposta.mensagem);
-      window.location.href = 'lojas.html';
+      window.location.href = 'lojas.php';
     } else {
       alert("ERRO: " + resposta.mensagem);
     }
