@@ -56,5 +56,3 @@ Frontend: HTML5, CSS3, JavaScript
 Framework CSS: Bootstrap 5
 
 Banco de Dados: MySQL 
-
-APIs: Google Maps API (para o mapa de coleta)
